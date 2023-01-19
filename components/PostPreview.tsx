@@ -15,13 +15,8 @@ export const PostPreview = () => {
           una o varias fotos sobre la pertenencia.
         </span>
       </div>
-      <div className="flex container__image max-w-[400px] md:max-w-[500px] p-5 md:p-16 md:my-8 bg-gradient-to-bl from-indigo-900 via-indigo-400 to-indigo-900 rounded-2xl shadow-lg shadow-black/50">
-        <Image
-          src={post}
-          alt=""
-          className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] zoom"
-          priority
-        />
+      <div className="card__post">
+        <Image src={post} alt="" className="img zoom" priority />
       </div>
     </section>
   );

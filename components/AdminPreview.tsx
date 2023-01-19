@@ -14,8 +14,8 @@ export const AdminPreview = () => {
           una o varias fotos sobre la pertenencia.
         </Paragraph>
       </div>
-      <div className="flex container__image max-w-[400px] md:max-w-[500px] p-5 md:p-16 md:my-8 bg-gradient-to-br from-amber-400 via-amber-200 to-amber-400 rounded-2xl shadow-lg shadow-black/50">
-        <Image src={admin} alt="" className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] zoom" />
+      <div className="card__admin">
+        <Image src={admin} alt="" className="img zoom" />
       </div>
     </section>
   );

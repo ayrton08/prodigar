@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import { Title, Subtitle, Large, Body, BodyBold, Small } from '@/ui/typography'
+import { PostPreview } from "@/components/PostPreview";
+import { AdminPreview } from "../components/AdminPreview";
 
 export default function Home() {
 	return (
@@ -17,7 +19,10 @@ export default function Home() {
 				<Body>Prodigar</Body>
 				<BodyBold>Prodigar</BodyBold>
 				<Small>Prodigar</Small>
+				<PostPreview />
+                <AdminPreview />
 			</main>
 		</>
 	)
 }
+

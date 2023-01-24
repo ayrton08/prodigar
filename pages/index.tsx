@@ -1,7 +1,10 @@
 import Head from "next/head";
-import { Inter } from "@next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Title, Subtitle, Large, Body, BodyBold, Small } from "@/ui/typography";
+import { PostPreview } from "@/components/PostPreview";
+import { AdminPreview } from "../components/AdminPreview";
+import { MapPreview } from "components/MapPreview";
+import { Contact } from "../components/Contact";
+import { Layout } from "@/ui/layout";
 
 export default function Home() {
   return (
@@ -12,7 +15,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main></main>
+      <Layout>
+        <PostPreview />
+        <AdminPreview />
+        <MapPreview />
+        <Contact />
+      </Layout>
     </>
   );
 }

@@ -3,6 +3,7 @@ import { Title, Subtitle, Large, Body, BodyBold, Small } from "@/ui/typography";
 import { PostPreview } from "@/components/PostPreview";
 import { AdminPreview } from "../components/AdminPreview";
 import { MapPreview } from "components/MapPreview";
+import { Contact } from "../components/Contact";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         <PostPreview />
         <AdminPreview />
         <MapPreview />
+        <Contact />
       </main>
     </>
   );

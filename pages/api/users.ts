@@ -14,9 +14,9 @@ export default async function handler(
   switch (method) {
     case "POST":
       try {
-        const { email } = req.body;
+        const { email } = JSON.parse(req.body);
         const user = await User.findOne({
-          email: req.body.email,
+          email,
         });
 
         if (!user) {
@@ -24,9 +24,9 @@ export default async function handler(
             email,
           });
           await newUser.save();
-          res.status(201).json({ newUser });
+          res.status(201).json({ newUser, created: true });
         }
-        res.status(201).json({ user });
+        res.status(201).json({ user, created: false });
       } catch (error) {
         res.status(400).json({ success: false });
       }

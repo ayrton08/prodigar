@@ -13,7 +13,7 @@ export const Contact = () => {
   const { onFetch, isSending, notify } = useFetch();
 
   return (
-    <section className="text-gray-600 ">
+    <section className="text-gray-600 bg-[#FEF5E7]" id="news">
       <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
         <div className="lg:flex-grow  flex flex-col md:text-left items-center text-center gap-6">
           <Subtitle>¡Ingresa tu mail para saber las novedades!</Subtitle>
@@ -32,7 +32,7 @@ export const Contact = () => {
             >
               {({ handleChange, resetForm, values }) => (
                 <Form className="flex w-full justify-center items-end">
-                  <div className="relative mr-4 lg:w-full xl:w-1/3 w-2/4">
+                  <div className="relative mr-4 lg:w-full xl:w-1/3 w-2/4 ">
                     <Small>Email</Small>
                     <input
                       type="email"

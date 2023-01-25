@@ -12,6 +12,10 @@ module.exports = {
 				montserrat: ['Montserrat Alternates', 'sans-serif'],
 				poppins: ['Poppins', 'sans-serif'],
 			},
+			colors: {
+				"custom-blue": "rgb(5, 0, 56)",
+				"ligth-blue": "#8fccfe"
+			}
 		},
 	},
 	plugins: [],

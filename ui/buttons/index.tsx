@@ -45,3 +45,21 @@ export const DeleteButton = ({ children, onClick }: any) => {
     </button>
   );
 };
+
+type BurguerProps = {
+  open: boolean;
+  handleClick: () => void;
+};
+
+export const BurguerButton = (props: BurguerProps) => {
+  return (
+    <div
+      className={`icon nav-icon-5 ${props.open ? "open" : ""}`}
+      onClick={props.handleClick}
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  );
+};

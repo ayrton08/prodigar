@@ -19,7 +19,7 @@ const Map = ReactMapboxGl({
 const style = 'mapbox://styles/mapbox/streets-v9'
 
 const mapStyle = {
-	height: '350px',
+	height: '250px',
 	width: '100%',
 }
 

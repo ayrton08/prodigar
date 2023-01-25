@@ -4,7 +4,7 @@ import { Title, Large } from "../ui/typography";
 
 export const MapPreview = () => {
   return (
-    <section className=" w-full p-4 flex flex-col items-center md:flex-row-reverse text-[#2C3E50] justify-evenly bg-[#FEF5E7]">
+    <section className=" w-full p-4 flex flex-col items-center md:flex-row-reverse text-[#2C3E50] justify-evenly">
       <div className="card__map">
         <Image src={map} alt="" className="img zoom" />
       </div>

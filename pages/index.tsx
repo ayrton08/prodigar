@@ -1,8 +1,9 @@
 import Head from 'next/head'
-import { Main } from '@/components/Main'
 import { PostPreview } from '@/components/PostPreview'
 import { AdminPreview } from '../components/AdminPreview'
 import { MapPreview } from 'components/MapPreview'
+import { Contact } from '../components/Contact'
+import { Main } from '@/components/Main'
 
 export default function Home() {
 	return (
@@ -18,6 +19,7 @@ export default function Home() {
 				<PostPreview />
 				<AdminPreview />
 				<MapPreview />
+				<Contact />
 			</main>
 		</>
 	)

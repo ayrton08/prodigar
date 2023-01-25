@@ -1,6 +1,10 @@
 export const Title = ({ children, color }: any) => {
 	return (
-		<h1 className={'font-poppins text-4xl md:text-5xl font-bold ' + color}>
+		<h1
+			className={
+				'font-poppins text-4xl md:text-5xl lg:text-7xl font-bold ' + color
+			}
+		>
 			{children}
 		</h1>
 	)

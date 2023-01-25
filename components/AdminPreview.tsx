@@ -4,7 +4,7 @@ import { Title, Large } from "../ui/typography";
 
 export const AdminPreview = () => {
   return (
-    <section className=" w-full p-4 flex flex-col items-center md:flex-row-reverse text-[#2C3E50] justify-evenly bg-[#FEF5E7]">
+    <section className=" w-full p-4 flex flex-col items-center md:flex-row-reverse text-[#2C3E50] justify-evenly bg-[#FEF5E7]" id="admin">
       <div className="max-w-[600px] lg:w-[800px] md:w-1/2 md:px-20 py-8 flex flex-col justify-between gap-10">
         <Title>Administra tus posteos realizados</Title>
         <Large>

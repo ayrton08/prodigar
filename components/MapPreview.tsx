@@ -3,7 +3,7 @@ import { Title, Large } from "../ui/typography";
 
 export const MapPreview = () => {
   return (
-    <section className=" w-full p-4 flex flex-col items-center md:flex-row text-[#2C3E50] justify-evenly bg-[#FEF5E7]">
+    <section className=" w-full p-4 flex flex-col items-center md:flex-row text-[#2C3E50] justify-evenly bg-[#FEF5E7]" id="location">
       <div className="max-w-[600px] lg:w-[800px] md:w-1/2 md:px-20 py-8 flex flex-col justify-between gap-10">
         <Title>Da a conocer la ubicación de tus pertenencias</Title>
         <Large>
@@ -16,7 +16,7 @@ export const MapPreview = () => {
         <Image
           src="https://res.cloudinary.com/deooec1tp/image/upload/v1674504897/Prodigar/Screenshot_from_2023-01-23_15-53-56_afaeih.png"
           alt="mapa"
-          className="img zoom"
+          className="img zoom rounded-[30px]"
           width={300}
           height={300}
         />

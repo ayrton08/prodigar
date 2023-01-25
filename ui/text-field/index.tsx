@@ -1,15 +1,28 @@
-import { Small } from '../typography'
+import { Small } from "../typography";
 
-export const InputText = ({ label, onChange, onKeyDown }: any) => {
-	return (
-		<label className='w-full'>
-			<Small>{label}</Small>
-			<input
-				className=' w-full text-base p-2 rounded-lg border-black border-4 '
-				type='text'
-				onChange={onChange}
-				onKeyDown={onKeyDown}
-			/>
-		</label>
-	)
+interface IProps {
+  label: string;
+  placeholder?: string;
+  onChange?: any;
+  onKeyDown?: any;
 }
+
+export const InputText = ({
+  label,
+  placeholder,
+  onChange,
+  onKeyDown,
+}: IProps) => {
+  return (
+    <label className="w-full">
+      <Small>{label}</Small>
+      <input
+        type="text"
+        id="first_name"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder={placeholder}
+        required
+      />
+    </label>
+  );
+};

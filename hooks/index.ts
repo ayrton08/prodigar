@@ -2,14 +2,20 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const useFetch = () => {
+interface IUseFetch {
+  onFetch: (email: string, path: string) => Promise<any>;
+  isSending: boolean;
+  notify: (email: string, registered: boolean) => void;
+}
+
+export const useFetch = (): IUseFetch => {
   const [isSending, setIsSending] = useState<boolean>(false);
 
   const notify = (email: string, registered: boolean) => {
     console.log(registered);
     !registered
       ? toast.info(
-          `Ya hemos registrado el mail ${email}, en breve te enviaremos la novedades a tu mail.`,
+          `Ya hemos registrado el mail ${email}, en breve te enviaremos las novedades a tu mail.`,
           {
             position: "bottom-left",
             autoClose: 5000,
@@ -22,7 +28,7 @@ export const useFetch = () => {
           }
         )
       : toast.success(
-          `Hemos registrado el mail ${email}, en breve te enviaremos la novedades a tu mail.`,
+          `Hemos registrado el mail ${email}, en breve te enviaremos las novedades a tu mail.`,
           {
             position: "bottom-left",
             autoClose: 5000,

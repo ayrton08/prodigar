@@ -7,7 +7,7 @@ export const AdminPreview = () => {
     <section className=" w-full px-6 sm:px-16  gap-20 p-4 flex flex-col items-center lg:flex-row text-[#2C3E50] justify-evenly">
       <div className="w-[600px] px-auto py-8 flex flex-col justify-between gap-10 ">
         <Title>Administra tus posteos realizados</Title>
-        <div className="glass-efect p-3 rounded-md">
+        <div className=" p-3 rounded-md bg-slate-500 bg-opacity-10 shadow-md">
           <Information title="Informacion Personal">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Repellendus minus quod quam aperiam cumque illo deserunt rerum

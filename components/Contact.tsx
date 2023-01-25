@@ -13,7 +13,7 @@ export const Contact = () => {
   const { onFetch, isSending, notify } = useFetch();
 
   return (
-    <section className="text-gray-600 bg-[#FEF5E7]">
+    <section className="text-gray-600 ">
       <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
         <div className="lg:flex-grow  flex flex-col md:text-left items-center text-center gap-6">
           <Subtitle>¡Ingresa tu mail para saber las novedades!</Subtitle>
@@ -45,7 +45,7 @@ export const Contact = () => {
                   </div>
                   <button
                     type="submit"
-                    className="inline-flex h-11 items-center text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+                    className="inline-flex h-11 items-center text-white bg-blue-300  border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
                   >
                     <BodyBold>{isSending ? <Loader /> : "Enviar"}</BodyBold>
                   </button>

@@ -25,10 +25,6 @@ export const AdminForm = () => {
       <div className="w-full flex flex-col md:flex-row gap-4">
         <div className="md:w-1/2">
           <MapBox />
-          {/* <Small color="text-gray-500">
-            COLOCÁ UN PUNTO DE REFERENCIA PARA SABER TU UBICACIÓN APROXIMADA.
-            PUEDE SER UNA DIRECCIÓN, UN BARRIO O UNA CIUDAD.
-          </Small> */}
         </div>
         <div className="md:w-1/2 flex flex-col gap-4 justify-between">
           <Image
@@ -42,10 +38,9 @@ export const AdminForm = () => {
         </div>
       </div>
 
-      {/* <MainButton>Editar</MainButton>
-      <DeleteButton>Eliminar Publicación</DeleteButton> */}
+      <MainButton>Editar</MainButton>
+      <DeleteButton>Eliminar Publicación</DeleteButton>
       <CancelButton>Cancelar</CancelButton>
-      <SuccessButton>Publicar</SuccessButton>
     </form>
   );
 };

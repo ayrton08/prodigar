@@ -12,7 +12,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="header bg-custom-blue p-10 fixed">
+    <header className="header bg-custom-blue p-10 fixed z-20">
       <Link
         className="logo flex items-center gap-3 md:hover:bg-blue-900 hover:rounded-lg hover:p-[1px] z-20"
         href={"#"}

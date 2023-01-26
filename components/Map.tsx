@@ -16,27 +16,27 @@ export function MapBox(props: MapBoxProps) {
   const [coords, setCoords] = useState(initialCoords);
   const [query, setQuery] = useState("");
 
-  async function search() {
-    geoClient
-      .forwardGeocode({
-        query: query ? query : props.defaultValue,
-        countries: ["ar"],
-        limit: 2,
-      })
-      .send()
-      .then((response) => {
-        const match = response.body;
-        const coordinates = match.features[0].geometry.coordinates;
-        return coordinates;
-      })
-      .then((data) => {
-        setCoords(data);
-        // lo "tiro" hacia arriba para que reciban las coordenadas desde "afuera"
-        if (props.onChange) {
-          props.onChange(query, data);
-        }
-      });
-  }
+  // async function search() {
+  //   geoClient
+  //     .forwardGeocode({
+  //       query: query ? query : props.defaultValue,
+  //       countries: ["ar"],
+  //       limit: 2,
+  //     })
+  //     .send()
+  //     .then((response) => {
+  //       const match = response.body;
+  //       const coordinates = match.features[0].geometry.coordinates;
+  //       return coordinates;
+  //     })
+  //     .then((data) => {
+  //       setCoords(data);
+  //       // lo "tiro" hacia arriba para que reciban las coordenadas desde "afuera"
+  //       if (props.onChange) {
+  //         props.onChange(query, data);
+  //       }
+  //     });
+  // }
 
   function inputChangeHandler(e: any) {
     setQuery(e.target.value ? e.target.value : props.defaultValue);
@@ -47,7 +47,7 @@ export function MapBox(props: MapBoxProps) {
     if (e.key == "Enter") {
       // evito que se dispare el submit
       e.preventDefault();
-      search();
+      // search();
     }
   }
 
@@ -67,14 +67,8 @@ export function MapBox(props: MapBoxProps) {
           onChange={inputChangeHandler}
           onKeyDown={keydownInputHandler}
         ></InputText>
-        <MainButton onClick={search}>Buscar</MainButton>
+        <MainButton>Buscar</MainButton>
       </div>
     </div>
   );
-}
-
-{
-  /* <Marker longitude={coords[0]} latitude={coords[1]} anchor='bottom'>
-		<img src={marker} className=' h-6 w-6 inline-block' alt='marker' />
-</Marker> */
 }

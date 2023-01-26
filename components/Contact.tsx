@@ -24,7 +24,8 @@ export const Contact = () => {
               onSubmit={async ({ email }, { setFieldValue }) => {
                 const res = await onFetch(email, "/users");
                 setFieldValue("email", "");
-                res.created ? notify(email, true) : notify(email, false);
+                res.status === "created" && notify(email, true);
+                res.status === "finded" && notify(email, false);
               }}
               validationSchema={Yup.object().shape({
                 email: Yup.string().email().required("Email is required"),

@@ -15,7 +15,7 @@ export const findOrCreateEmail = async (
       email,
     });
     await newUser.save();
-    return res.status(201).json({ newUser, created: true });
+    return res.status(201).json({ newUser, status: "created" });
   }
-  res.status(201).json({ user, created: false });
+  res.status(201).json({ user, status: "finded" });
 };

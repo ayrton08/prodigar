@@ -4,7 +4,7 @@ import { AnimatedText } from '@/ui/animated-text'
 
 export const Main = () => {
 	return (
-		<section className='w-full p-5 flex flex-col items-center justify-evenly bg-[#FEF5E7]'>
+		<section className='w-full p-5 flex flex-col items-center justify-evenly bg-[#FEF5E7]' id="aboutUs">
 			<AnimatedText />
 			<Small>Eduardo Galeano.</Small>
 			<div className=' w-full py-20 flex flex-col items-center md:flex-row-reverse text-[#2C3E50] justify-center bg-[#FEF5E7]'>

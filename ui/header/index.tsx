@@ -23,6 +23,11 @@ export const Header = () => {
 
       <nav className={`links ${menuOpen ? "active" : ""}`}>
         <Large>
+          <Link href="#aboutUs" onClick={handleClick}>
+            Quiénes somos
+          </Link>
+        </Large>
+        <Large>
           <Link href="#post" onClick={handleClick}>
             Publica
           </Link>
@@ -35,11 +40,6 @@ export const Header = () => {
         <Large>
           <Link href="#location" onClick={handleClick}>
             Ubica
-          </Link>
-        </Large>
-        <Large>
-          <Link href="#news" onClick={handleClick}>
-            Novedades
           </Link>
         </Large>
       </nav>

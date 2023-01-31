@@ -5,6 +5,9 @@ import { Loader } from "../ui/loaders/index";
 import { ToastContainer } from "react-toastify";
 import * as Yup from "yup";
 
+import email from "../public/email.svg";
+import Image from "next/image";
+
 const initialvalue: { email: string } = {
   email: "",
 };
@@ -33,7 +36,7 @@ export const Contact = () => {
             >
               {({ handleChange, resetForm, values }) => (
                 <Form className="flex w-full justify-center items-end">
-                  <div className="relative mr-4 lg:w-full xl:w-1/3 w-2/4 ">
+                  <div className="relative mr-4 lg:w-full xl:w-1/3 w-2/4">
                     <Small>Email</Small>
                     <input
                       type="email"
@@ -41,7 +44,12 @@ export const Contact = () => {
                       name="email"
                       onChange={handleChange}
                       value={values.email}
-                      className="w-full mt-2 h-11 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      className="w-full pl-12 mt-2 h-11 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    />
+                    <Image
+                      src={email}
+                      alt=""
+                      className="absolute top-7 left-2"
                     />
                   </div>
                   <button

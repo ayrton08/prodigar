@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Layout } from "../ui/layout/index";
 import { ReportForm } from "../components/ReportForm";
+import { PostForm } from "../components/PostForm";
 
 const post = () => {
   return (
@@ -13,7 +14,9 @@ const post = () => {
       </Head>
 
       <Layout>
-        <ReportForm />
+        <div className="w-full flex justify-center">
+          <PostForm />
+        </div>
       </Layout>
     </>
   );

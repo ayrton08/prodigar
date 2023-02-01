@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Layout } from "../ui/layout/index";
 import { ReportForm } from "../components/ReportForm";
 import { PostForm } from "../components/PostForm";
+import { Title, Subtitle } from "../ui/typography/index";
 
 const post = () => {
   return (
@@ -14,7 +15,8 @@ const post = () => {
       </Head>
 
       <Layout>
-        <div className="w-full flex justify-center">
+        <div className="w-full flex flex-col items-center justify-center gap-12 px-4">
+          <Subtitle>Publica lo que quieras donar</Subtitle>
           <PostForm />
         </div>
       </Layout>

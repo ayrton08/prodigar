@@ -1,3 +1,11 @@
+import { MouseEventHandler, ReactNode } from "react";
+
+interface IButtons {
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  children: ReactNode;
+  type: "button" | "submit" | "reset" | undefined;
+}
+
 export const MainButton = ({ children, onClick }: any) => {
   return (
     <button
@@ -10,9 +18,10 @@ export const MainButton = ({ children, onClick }: any) => {
   );
 };
 
-export const SuccessButton = ({ children, onClick }: any) => {
+export const SuccessButton = ({ children, onClick, type }: IButtons) => {
   return (
     <button
+      type={type}
       onClick={onClick}
       disabled
       className=" w-full max-h-14 bg-green-500 flex items-center justify-center text-white font-montserrat font-bold text-sm md:text-base py-2 md:py-4 md:px-2 rounded-lg cursor-pointer"

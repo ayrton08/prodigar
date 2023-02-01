@@ -52,15 +52,16 @@ export function MapBox(props: MapBoxProps) {
   }
 
   return (
-    <div className="w-full max-w-xs grid gap-4 justify-items-center align-middle m-0 md:max-w-sm">
+    <div className="w-full  grid gap-4 justify-items-center align-middle m-0 ">
       <Map
         style={style}
         containerStyle={mapStyle}
         center={coords}
         zoom={[13]}
         movingMethod="easeTo"
+        className="border rounded-lg border-gray-300"
       ></Map>
-      <div className="w-full grid gap-4 justify-items-center align-middle m-0 md:max-w-sm">
+      <div className="w-full grid gap-4 justify-items-center align-middle m-0 ">
         <InputText
           placeholder="Mendoza"
           label="Ubicación"

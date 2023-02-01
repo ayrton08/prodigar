@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
-import { Marker } from "react-map-gl";
-import { geoClient, Map, style, mapStyle } from "../lib/mapbox";
-import marker from "../public/marker.png";
-import { InputText } from "../ui/text-field";
-import { MainButton } from "../ui/buttons";
+import { useState } from 'react';
+import { Marker } from 'react-map-gl';
+import { geoClient, Map, style, mapStyle } from '../lib/mapbox';
+import marker from '../public/marker.png';
+import { InputText } from '../ui/text-field';
+import { MainButton } from '../ui/buttons';
 
 type MapBoxProps = {
   onChange?: (arg1: any, arg2: any) => any;
@@ -14,7 +14,7 @@ type MapBoxProps = {
 export function MapBox(props: MapBoxProps) {
   const initialCoords: any = [-68.838844, -32.888355];
   const [coords, setCoords] = useState(initialCoords);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
 
   // async function search() {
   //   geoClient
@@ -44,7 +44,7 @@ export function MapBox(props: MapBoxProps) {
 
   function keydownInputHandler(e: any) {
     // si no es con form, tengo que agregar esto
-    if (e.key == "Enter") {
+    if (e.key == 'Enter') {
       // evito que se dispare el submit
       e.preventDefault();
       // search();
@@ -68,7 +68,7 @@ export function MapBox(props: MapBoxProps) {
           onChange={inputChangeHandler}
           onKeyDown={keydownInputHandler}
         ></InputText>
-        <MainButton>Buscar</MainButton>
+        <MainButton type="button">Buscar</MainButton>
       </div>
     </div>
   );

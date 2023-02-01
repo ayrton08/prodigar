@@ -2,7 +2,6 @@ export const MainButton = ({ children, onClick }: any) => {
   return (
     <button
       onClick={onClick}
-      disabled
       className=" w-full max-h-14 bg-blue-300 flex items-center justify-center text-white font-montserrat font-bold text-sm md:text-base py-2 md:py-4 md:px-2 rounded-lg cursor-pointer"
     >
       {children}

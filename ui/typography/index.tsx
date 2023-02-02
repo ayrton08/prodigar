@@ -10,9 +10,9 @@ export const Title = ({ children, color, align }: any) => {
   );
 };
 
-export const Subtitle = ({ children, color }: any) => {
+export const Subtitle = ({ children, color, align }: any) => {
   return (
-    <h2 className={"font-poppins text-3xl md:text-4xl font-bold " + color}>
+    <h2 className={"font-poppins text-3xl md:text-4xl font-bold " + color + ` text-${align}`}>
       {children}
     </h2>
   );
@@ -21,6 +21,14 @@ export const Subtitle = ({ children, color }: any) => {
 export const Large = ({ children, color }: any) => {
   return (
     <p className={"font-montserrat text-xl font-semibold " + color}>
+      {children}
+    </p>
+  );
+};
+
+export const LargeBold = ({ children, color }: any) => {
+  return (
+    <p className={"font-montserrat text-xl font-bold " + color}>
       {children}
     </p>
   );

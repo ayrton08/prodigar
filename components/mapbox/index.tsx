@@ -10,7 +10,7 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
 
 export function Mapbox() {
   const mapContainer = useRef(null);
-  const map:any = useRef();
+  const map: any = useRef();
 
   const [lng, setLng] = useState(-63.988684);
   const [lat, setLat] = useState(-31.497542);
@@ -24,8 +24,6 @@ export function Mapbox() {
   const marker = useRef<any>(null);
 
   const [newLocation, setNewLocation] = useState();
-
-  console.log('location', newLocation);
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
@@ -87,7 +85,7 @@ export function Mapbox() {
         <SuccessButton
           type="button"
           onClick={myLocation}
-          className="w-40 absolute bottom-2 right-2 z-30 border border-gray-300"
+          className="w-40 absolute bottom-2 right-2 z-10 border border-gray-300"
         >
           Go to my location 🗺️
         </SuccessButton>

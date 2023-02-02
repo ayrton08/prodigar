@@ -1,23 +1,27 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { MainButton } from '../ui/buttons/index';
-import { ItemsContext } from '../contexts/items';
 import Image from 'next/image';
+import { useAppDispatch, useAppSelector } from '../hooks/redux-toolkit';
+import { setPicture } from '@/store';
+import { RootState } from '../store/store';
 
 export const Dropzone = () => {
-  const { picture, savePicture } = useContext(ItemsContext);
+  const { picture } = useAppSelector((state: RootState) => state.items);
+
+  const dispatch = useAppDispatch();
 
   const onDrop = useCallback(
     (acceptedFiles: any) => {
       acceptedFiles.forEach((file: any) => {
         const reader = new FileReader();
         reader.onload = () => {
-          savePicture(`${reader.result}`);
+          dispatch(setPicture(`${reader.result}`));
         };
         reader.readAsDataURL(file);
       });
     },
-    [savePicture]
+    [dispatch]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

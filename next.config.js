@@ -7,6 +7,10 @@ const nextConfig = {
 				protocol: 'https',
 				hostname: 'res.cloudinary.com',
 			},
+			{
+				protocol: 'https',
+				hostname: 'www.vhv.rs',
+			},
 		],
 	},
 	swcMinify: true,

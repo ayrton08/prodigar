@@ -4,6 +4,8 @@ import { MainButton, CancelButton, SuccessButton } from '@/ui/buttons';
 import { MapBox } from './Map';
 import { Dropzone } from './Dropzone';
 import { Form, Formik } from 'formik';
+import { useContext } from 'react';
+import { ItemsContext } from '../contexts/items/ItemsContext';
 
 const initialValues = {
   fullname: '',
@@ -12,11 +14,13 @@ const initialValues = {
 };
 
 export const PostForm = () => {
+  const { picture } = useContext(ItemsContext);
+
   return (
     <>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values) => console.log({ values })}
+        onSubmit={(values) => console.log({ values, picture })}
       >
         {({ values, handleChange, handleSubmit }) => (
           <Form className="grid gap-2 md:gap-4 justify-items-center items-center m-0 w-full max-w-[400px] md:max-w-[600px]">

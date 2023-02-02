@@ -1,21 +1,24 @@
-import Image from 'next/image';
-import React, { useCallback } from 'react';
-import { useState } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { MainButton } from '../ui/buttons/index';
+import { ItemsContext } from '../contexts/items';
+import Image from 'next/image';
 
 export const Dropzone = () => {
-  const [images, setImages] = useState<string[]>([]);
+  const { picture, savePicture } = useContext(ItemsContext);
 
-  const onDrop = useCallback((acceptedFiles: any) => {
-    acceptedFiles.forEach((file: any) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImages([`${reader.result}`]);
-      };
-      reader.readAsDataURL(file);
-    });
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles: any) => {
+      acceptedFiles.forEach((file: any) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          savePicture(`${reader.result}`);
+        };
+        reader.readAsDataURL(file);
+      });
+    },
+    [savePicture]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -30,7 +33,7 @@ export const Dropzone = () => {
         <label
           htmlFor="dropzone-file"
           className={`${
-            images.length && 'hidden'
+            picture && 'hidden'
           } flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600`}
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -61,20 +64,18 @@ export const Dropzone = () => {
           <input {...getInputProps()} className="hidden" />
         </label>
       </div>
-      {images?.length > 0 && (
-        <div>
-          {images.map((image: any, index: any) => (
-            <img
-              src={image}
-              key={index}
-              alt="dropzone"
-              className="w-full h-60 object-contain  shadow-xl border-gray-200 rounded-lg py-4"
-            />
-          ))}
-        </div>
+      {picture && (
+        <Image
+          src={picture}
+          width={500}
+          height={300}
+          key={'hola'}
+          alt="dropzone"
+          className="w-full h-60 object-contain  shadow-xl border-gray-200 rounded-lg py-4"
+        />
       )}
       <MainButton {...getRootProps()} type="button">
-        {images.length ? 'Cambiar imagen' : 'Agregar imagen'}
+        {picture ? 'Cambiar imagen' : 'Agregar imagen'}
       </MainButton>
     </>
   );

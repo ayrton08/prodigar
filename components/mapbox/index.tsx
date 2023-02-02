@@ -1,14 +1,17 @@
-import React, { useRef, useEffect, useState } from 'react';
-import mapboxgl, { Map } from 'mapbox-gl';
-import css from './Mapbox.module.css';
+import { useRef, useEffect, useState } from 'react';
+import { useAppDispatch } from '../../hooks/redux-toolkit';
+import mapboxgl from 'mapbox-gl';
+
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { InputText } from '../../ui/text-field/index';
-import { MainButton, SuccessButton } from '../../ui/buttons/index';
-import { Small } from '../../ui/typography/index';
+import { SuccessButton } from '../../ui/buttons';
+import { Small } from '../../ui/typography';
+import { setLocation } from '@/store';
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
 
 export function Mapbox() {
+  const dispatch = useAppDispatch();
+
   const mapContainer = useRef(null);
   const map: any = useRef();
 
@@ -23,7 +26,7 @@ export function Mapbox() {
 
   const marker = useRef<any>(null);
 
-  const [newLocation, setNewLocation] = useState();
+  // const [newLocation, setNewLocation] = useState();
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
@@ -44,10 +47,10 @@ export function Mapbox() {
   }, [locationUpdate]);
 
   useEffect(() => {
-    console.log(map);
     map.current.on('click', (e: any) => {
       const coordinates = e.lngLat;
-      setNewLocation(coordinates);
+
+      dispatch(setLocation({ ...coordinates }));
 
       setMarkerLat(coordinates.lat);
       setMarkerLng(coordinates.lng);
@@ -56,7 +59,7 @@ export function Mapbox() {
       marker.current = new mapboxgl.Marker();
       marker.current.setLngLat(coordinates).addTo(map.current as any);
     });
-  }, [locationUpdate]);
+  }, [dispatch, locationUpdate]);
 
   const myLocation = (e: any) => {
     e.preventDefault();

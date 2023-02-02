@@ -1,16 +1,16 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import NextCors from "nextjs-cors";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import NextCors from 'nextjs-cors';
 
-import { dbConnection } from "../../lib/moongose";
-import { findOrCreateEmail } from "../../controllers/user-controller";
+import { dbConnection } from '../../lib/moongose';
+import { findOrCreateEmail } from '../../controllers/user-controller';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   await NextCors(req, res, {
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    origin: "*",
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    origin: '*',
     optionsSuccessStatus: 200,
   });
 
@@ -19,9 +19,10 @@ export default async function handler(
   await dbConnection();
 
   switch (method) {
-    case "POST":
+    case 'POST':
       try {
-        await findOrCreateEmail(req, res);
+        res.status(200).json({ success: true, res: req.body });
+        // await findOrCreateEmail(req, res);
       } catch (error) {
         res.status(400).json({ success: false });
       }

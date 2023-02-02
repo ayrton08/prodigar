@@ -1,12 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
+interface Location {
+  lng: number | null;
+  lat: number | null;
+}
+
 interface ItemState {
   picture: string;
+  location: Location;
 }
 
 const initialState: ItemState = {
   picture: '',
+  location: {
+    lat: null,
+    lng: null,
+  },
 };
 
 export const itemSlice = createSlice({
@@ -16,9 +26,10 @@ export const itemSlice = createSlice({
     setPicture: (state, { payload }: PayloadAction<string>) => {
       state.picture = payload;
     },
+    setLocation: (state, { payload }: PayloadAction<Location>) => {
+      state.location = payload;
+    },
   },
 });
 
-export const { setPicture } = itemSlice.actions;
-
-export const selectItem = (state: RootState) => state.items;
+export const { setPicture, setLocation } = itemSlice.actions;

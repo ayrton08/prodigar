@@ -15,7 +15,7 @@ export const Header = () => {
     <header className="header bg-custom-blue p-10 fixed z-20">
       <Link
         className="logo flex items-center gap-3 md:hover:bg-blue-900 hover:rounded-lg hover:p-[1px] z-20"
-        href={"#"}
+        href={"/"}
       >
         <Logo size={"w-14 h-14"} />
         <Subtitle color={"text-ligth-blue"}>Prodigar</Subtitle>

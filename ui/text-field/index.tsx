@@ -3,6 +3,9 @@ import { Small } from '../typography';
 interface IProps {
   label: string;
   placeholder?: string;
+  id?: string;
+  type?: string;
+  md?: string;
   onChange?: any;
   onKeyDown?: any;
   name?: string;
@@ -12,14 +15,17 @@ interface IProps {
 export const InputText = ({
   label,
   placeholder,
+  id,
+  type,
+  md,
   onChange,
   onKeyDown,
   name,
   className,
 }: IProps) => {
   return (
-    <label className="w-full ">
-      <Small>{label}</Small>
+    <label className="w-full">
+      <Small md={md}>{label}</Small>
       <input
         type="text"
         id="first_name"

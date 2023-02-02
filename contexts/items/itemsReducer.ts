@@ -1,13 +1,13 @@
 import { ItemsState } from './';
 
-type ItemsType = {
+type PictureType = {
   type: '[Items] - Set Picture';
   payload: string;
 };
 
 export const itemsReducer = (
   state: ItemsState,
-  action: ItemsType
+  action: PictureType
 ): ItemsState => {
   switch (action.type) {
     case '[Items] - Set Picture':

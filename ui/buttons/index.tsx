@@ -5,14 +5,20 @@ interface IButtons {
   children: ReactNode;
   type?: 'button' | 'submit' | 'reset' | undefined;
   disabled?: boolean;
+  className?: string;
 }
 
-export const MainButton = ({ children, onClick, type }: IButtons) => {
+export const MainButton = ({
+  children,
+  onClick,
+  type,
+  className,
+}: IButtons) => {
   return (
     <button
       onClick={onClick}
       type={type}
-      className=" w-full max-h-14 bg-blue-300 flex items-center justify-center text-white font-montserrat font-bold text-sm md:text-base py-2 md:py-4 md:px-2 rounded-lg cursor-pointer"
+      className={`${className} w-full max-h-14 bg-blue-300 flex items-center justify-center text-white font-montserrat font-bold text-sm md:text-base py-2 md:py-4 md:px-2 rounded-lg cursor-pointer`}
     >
       {children}
     </button>
@@ -24,13 +30,14 @@ export const SuccessButton = ({
   onClick,
   type,
   disabled = false,
+  className,
 }: IButtons) => {
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className="w-full max-h-14 bg-green-500 flex items-center justify-center text-white font-montserrat font-bold text-sm md:text-base py-2 md:py-4 md:px-2 rounded-lg cursor-pointer"
+      className={`${className} w-full max-h-14 bg-green-500 hover:bg-green-400 flex items-center justify-center text-white font-montserrat font-bold text-sm md:text-base py-2 md:py-4 md:px-2 rounded-lg cursor-pointer`}
     >
       {children}
     </button>

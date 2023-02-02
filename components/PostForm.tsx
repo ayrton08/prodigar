@@ -6,6 +6,7 @@ import { Dropzone } from './Dropzone';
 import { Form, Formik } from 'formik';
 import { useContext } from 'react';
 import { ItemsContext } from '../contexts/items/ItemsContext';
+import { Mapbox } from './mapbox/index';
 
 const initialValues = {
   fullname: '',
@@ -47,8 +48,8 @@ export const PostForm = () => {
               </div>
             </div>
 
-            <div className="w-full flex flex-col  gap-4">
-              <MapBox />
+            <div className="w-full flex flex-col  gap-2">
+              <Mapbox />
               <div className=" flex flex-col gap-4 justify-between">
                 <Dropzone />
               </div>

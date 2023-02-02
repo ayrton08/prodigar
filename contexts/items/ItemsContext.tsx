@@ -1,7 +1,9 @@
 import { createContext } from 'react';
 
 export interface IContextProps {
-  picture: string;
+  picture?: string;
+  location?: Location;
+
   savePicture: (picture: string) => void;
 }
 

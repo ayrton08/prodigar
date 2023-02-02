@@ -71,7 +71,7 @@ export const Dropzone = () => {
           height={300}
           key={'hola'}
           alt="dropzone"
-          className="w-full h-60 object-contain  shadow-xl border-gray-200 rounded-lg py-4"
+          className="w-full h-60 object-contain  shadow-2xl border-gray-300 rounded-lg py-4"
         />
       )}
       <MainButton {...getRootProps()} type="button">

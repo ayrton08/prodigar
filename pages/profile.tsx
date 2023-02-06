@@ -1,9 +1,10 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { Layout } from '../ui/layout/index';
-import { Subtitle, Small } from '../ui/typography/index';
+import { Subtitle, Small, BodyBold } from '../ui/typography/index';
 
 import avatar from '@/public/avatar.svg';
+import { CardUser } from '../components/CardUser';
 
 const post = () => {
   return (
@@ -16,7 +17,7 @@ const post = () => {
       </Head>
 
       <Layout>
-        <div className="lg:w-2/3  flex flex-col md:flex-row items-center justify-center justify-self-center lg:px-20">
+        <div className="xl:w-2/3 w-full flex gap-20 px-10 pt-10 flex-col md:flex-row items-center justify-center justify-self-center lg:px-20">
           <div className="lg:w-1/2 h-full flex flex-col justify-start items-center gap-10">
             <Image
               src={avatar}
@@ -27,14 +28,12 @@ const post = () => {
             />
             <Subtitle>Ayrton Juarez</Subtitle>
           </div>
-          <div className="lg:w-1/2 w-full mx-auto flex items-center justify-center">
-            <div className=" w-full  rounded-md bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1">
-              <div className="h-full w-full bg-custom-blue text-white p-4 flex flex-col gap-4">
-                <Small>Ciudad:</Small>
-                <Small>Direccion:</Small>
-                <Small>Email:</Small>
-              </div>
-            </div>
+          <div className=" xl:w-1/2 w-full mx-auto flex items-center">
+            <CardUser
+              address="El Dorado 370"
+              city="Puerto Rico"
+              email="ayrton@gmail.com"
+            />
           </div>
         </div>
       </Layout>

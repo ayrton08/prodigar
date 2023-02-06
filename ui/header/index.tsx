@@ -23,23 +23,33 @@ export const Header = () => {
 
       <nav className={`links ${menuOpen ? "active" : ""}`}>
         <Large>
-          <Link href="#aboutUs" onClick={handleClick}>
-            Quiénes somos
+          <Link href="/objects-near-me" onClick={handleClick}>
+            Objetos cerca mío
           </Link>
         </Large>
         <Large>
-          <Link href="#post" onClick={handleClick}>
-            Publica
+          <Link href="/profile" onClick={handleClick}>
+            Perfil
           </Link>
         </Large>
         <Large>
-          <Link href="#admin" onClick={handleClick}>
-            Administra
+          <Link href="/my-post" onClick={handleClick}>
+            Mis objetos publicados
           </Link>
         </Large>
         <Large>
-          <Link href="#location" onClick={handleClick}>
-            Ubica
+          <Link href="/post" onClick={handleClick}>
+            Publicar objetos
+          </Link>
+        </Large>
+        <Large>
+          <Link href="/login" onClick={handleClick}>
+            Login
+          </Link>
+        </Large>
+        <Large>
+          <Link href="/signup" onClick={handleClick}>
+            SignUp
           </Link>
         </Large>
       </nav>

@@ -14,7 +14,8 @@ module.exports = {
 			},
 			colors: {
 				"custom-blue": "rgb(5, 0, 56)",
-				"ligth-blue": "#8fccfe"
+				"ligth-blue": "#8fccfe",
+				"color-link": "#40AFFF"
 			}
 		},
 	},

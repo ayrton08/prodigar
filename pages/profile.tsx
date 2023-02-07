@@ -17,18 +17,18 @@ const post = () => {
       </Head>
 
       <Layout>
-        <div className="xl:w-2/3 w-full flex gap-20 px-10 pt-10 flex-col md:flex-row items-center justify-center justify-self-center lg:px-20">
-          <div className="lg:w-1/2 h-full flex flex-col justify-start items-center gap-10">
+        <div className="xl:w-2/3 w-full flex gap-20 px-4 md:px-10 pt-10 flex-col md:flex-row items-center justify-center justify-self-center lg:px-0">
+          <div className="lg:w-1/2 container-page flex flex-col justify-center items-center gap-10">
             <Image
               src={avatar}
               alt="profile"
-              className="w-44 rounded-full border-4 border-custom-blue "
+              className=" w-32 md:w-48 rounded-full "
               width={300}
               height={300}
             />
             <Subtitle>Ayrton Juarez</Subtitle>
           </div>
-          <div className=" xl:w-1/2 w-full mx-auto flex items-center">
+          <div className=" xl:w-1/2 w-full mx-auto flex items-center justify-center">
             <CardUser
               address="El Dorado 370"
               city="Puerto Rico"

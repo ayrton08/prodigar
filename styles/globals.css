@@ -232,5 +232,5 @@ html {
 
 
 .container-page {
-  min-height: calc(100vh - 330px);
+  min-height: calc(100vh - 612px);
 }

@@ -4,7 +4,7 @@ import { Body, BodyBold, Large, Subtitle, Small } from "../typography";
 
 export const Footer = () => {
   return (
-    <footer className="p-12 grid gap-12 md:flex md:justify-between md:p-16 bg-custom-blue">
+    <footer className="p-12 grid gap-12 md:flex md:justify-between md:p-16 bg-custom-blue ">
       <div className="flex items-center gap-3">
         <Logo size={"w-14 h-14"} />
         <Subtitle color={"text-ligth-blue"}>Prodigar</Subtitle>

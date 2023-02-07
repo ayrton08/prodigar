@@ -1,9 +1,17 @@
 import { Layout } from '../../ui/layout/index';
+import { PostForm } from '../../components/PostForm';
+import { EditForm } from '../../components/EditForm';
 
 export const ItemPage = () => {
   return (
     <Layout>
-      <h1>Soy el form editar</h1>
+      <div className="w-full flex justify-center">
+        <EditForm
+          description="Hola esto es una mesa"
+          fullname="Ayrton"
+          item="Mesa"
+        />
+      </div>
     </Layout>
   );
 };

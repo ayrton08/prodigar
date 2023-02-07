@@ -9,7 +9,11 @@ import { setLocation } from '@/store';
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
 
-export function Mapbox() {
+interface IMapbox {
+  edit?: boolean;
+}
+
+export function Mapbox({ edit }: IMapbox) {
   const dispatch = useAppDispatch();
 
   const mapContainer = useRef(null);
@@ -78,7 +82,7 @@ export function Mapbox() {
   return (
     <>
       <div className="relative grid gap-2">
-        <Small>
+        <Small color={edit && 'hidden'}>
           Please mark on the map the exact location with a click on the place 📍
         </Small>
         <div

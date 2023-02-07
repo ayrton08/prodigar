@@ -6,7 +6,12 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux-toolkit';
 import { setPicture } from '@/store';
 import { RootState } from '../store/store';
 
-export const Dropzone = () => {
+interface IDropzone {
+  edit?: boolean;
+  url?: string;
+}
+
+export const Dropzone = ({ edit, url }: IDropzone) => {
   const { picture } = useAppSelector((state: RootState) => state.items);
 
   const dispatch = useAppDispatch();
@@ -29,16 +34,18 @@ export const Dropzone = () => {
   });
 
   return (
-    <>
+    <div className="grid gap-3">
       <div
-        className="flex items-center justify-center w-full"
+        className="flex items-center justify-center w-full "
         {...getRootProps()}
       >
         <label
           htmlFor="dropzone-file"
           className={`${
             picture && 'hidden'
-          } flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600`}
+          } flex flex-col items-center justify-center w-full ${
+            edit ? 'hidden' : 'h-64'
+          } border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600`}
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <svg
@@ -78,9 +85,27 @@ export const Dropzone = () => {
           className="w-full h-60 object-contain  shadow-2xl border-gray-300 rounded-lg py-4"
         />
       )}
-      <MainButton {...getRootProps()} type="button">
-        {picture ? 'Cambiar imagen' : 'Agregar imagen'}
-      </MainButton>
-    </>
+
+      {edit && (
+        <Image
+          src={url || ''}
+          width={500}
+          height={300}
+          key={'hola'}
+          alt="dropzone"
+          className="w-full h-52 object-contain  shadow-2xl border-gray-300 rounded-lg py-4"
+        />
+      )}
+
+      {edit ? (
+        <MainButton {...getRootProps()} type="button">
+          Cambiar imagen
+        </MainButton>
+      ) : (
+        <MainButton {...getRootProps()} type="button">
+          {picture ? 'Cambiar imagen' : 'Agregar imagen'}
+        </MainButton>
+      )}
+    </div>
   );
 };

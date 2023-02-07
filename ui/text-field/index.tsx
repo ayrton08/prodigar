@@ -10,6 +10,7 @@ interface IProps {
   onKeyDown?: any;
   name?: string;
   className?: string;
+  value?: string;
 }
 
 export const InputText = ({
@@ -22,6 +23,7 @@ export const InputText = ({
   onKeyDown,
   name,
   className,
+  value,
 }: IProps) => {
   return (
     <label className="w-full">
@@ -34,6 +36,7 @@ export const InputText = ({
         placeholder={placeholder}
         required
         onChange={onChange}
+        value={value}
       />
     </label>
   );

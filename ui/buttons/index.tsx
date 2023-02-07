@@ -60,7 +60,7 @@ export const DeleteButton = ({ children, onClick }: IButtons) => {
   return (
     <button
       onClick={onClick}
-      className=" w-full bg-red-600 flex items-center justify-center text-white font-montserrat font-bold text-base py-4 px-2 rounded-lg cursor-pointer"
+      className=" w-full bg-red-600 flex items-center justify-center text-white font-montserrat font-bold text-sm md:text-base py-2 md:py-4 md:px-2 rounded-lg cursor-pointer"
     >
       {children}
     </button>

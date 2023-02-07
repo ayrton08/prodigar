@@ -147,7 +147,7 @@ nav a {
 }
 
 .links {
-  @apply absolute right-0 ml-auto mr-auto text-center md:static md:m-0 flex gap-5 top-[-700px] left-[-2000px];
+  @apply absolute right-0 ml-auto mr-auto text-center md:static md:m-0 flex gap-5 top-[-700px] left-[-2000px] items-center;
   transition: all 0.5s ease;
 }
 

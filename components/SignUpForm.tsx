@@ -1,32 +1,96 @@
-import { MainButton } from "@/ui/buttons";
-import { BodyBold } from "ui/typography";
-import { useRouter } from "next/router";
 import { useState } from "react";
+import { Form, Formik } from "formik";
+import * as yup from "yup";
+import { useRouter } from "next/router";
+import { RootState } from "store/store";
+import { setUserData } from "store";
+import { useAppDispatch, useAppSelector } from "hooks/redux-toolkit";
+import { sendCodeSignUp } from "lib/api";
+import { MainButton } from "ui/buttons";
 import { InputText } from "ui/text-field";
+import { Loader } from "ui/loaders";
+
+interface InitialValues {
+  email: string;
+  fullname: string;
+  address: string;
+}
+
+const initialValues = {
+  email: "",
+  fullname: "",
+  address: "",
+};
+
+const schema = yup.object().shape({
+  email: yup.string().required().email(),
+  fullname: yup.string().required(),
+  address: yup.string().required(),
+});
 
 export const SignUpForm = () => {
-  const [email, setEmail] = useState();
   const router = useRouter();
+  const [loader, setLoader] = useState(false);
+  const { userData } = useAppSelector((state: RootState) => state.userData);
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    // const emailValue = e.target.email.value;
-    // setEmail(emailValue);
-    console.log(
-      e.target.email.value,
-      e.target.fullname.value,
-      e.target.address.value
+  const handleSubmit = async (values: InitialValues) => {
+    setLoader(true);
+    dispatch(setUserData(values));
+
+    const data: any = await sendCodeSignUp(
+      userData.email,
+      userData.fullname,
+      userData.address
     );
+
+    if (data) {
+      setLoader(false);
+    }
+
+    if (data.status >= 200 && data.status < 300) {
+      router.push("/login");
+    }
   };
 
-  
-
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-      <InputText label="Email" id="email" type="email" md="md:text-lg" />
-      <InputText label="Full name" id="fullname" type="text" md="md:text-lg" />
-      <InputText label="Address" id="address" type="text" md="md:text-lg" />
-      <MainButton>Continuar</MainButton>
-    </form>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={async (values) => handleSubmit(values)}
+      validationSchema={schema}
+    >
+      {({ values, handleChange, handleSubmit }) => (
+        <Form className="flex flex-col gap-4">
+          <InputText
+            label="Email"
+            id="email"
+            type="email"
+            md="md:text-lg"
+            name="email"
+            onChange={handleChange}
+          />
+          <InputText
+            label="Full name"
+            id="fullname"
+            type="text"
+            md="md:text-lg"
+            name="fullname"
+            onChange={handleChange}
+          />
+          <InputText
+            label="Address"
+            id="address"
+            type="text"
+            md="md:text-lg"
+            name="address"
+            onChange={handleChange}
+          />
+
+          <MainButton type="submit">
+            {loader ? <Loader /> : "Continuar"}
+          </MainButton>
+        </Form>
+      )}
+    </Formik>
   );
 };

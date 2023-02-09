@@ -4,19 +4,24 @@ import { InputText } from '../ui/text-field/index';
 import fetchApi from '../lib/axios';
 import { Form, Formik } from 'formik';
 import { MainButton } from '../ui/buttons/index';
+import { useAppDispatch } from 'hooks/redux-toolkit';
+import { setUserData } from 'store';
 
 interface IProps {
   address: string;
   email: string;
   edit?: boolean;
-  fullName?: string;
+  fullName: string;
 }
 
+const initialValue: IProps = {
+  fullName: '',
+  email: '',
+  address: '',
+};
+
 export const CardUser: FC<IProps> = ({ fullName, address, email, edit }) => {
-  const initialValue = {
-    email,
-    address: '',
-  };
+  const dispatch = useAppDispatch();
 
   const currentDataUser = {
     address,
@@ -25,12 +30,26 @@ export const CardUser: FC<IProps> = ({ fullName, address, email, edit }) => {
   };
 
   const updateUser = async (newDataUser: IProps) => {
+    dispatch(
+      setUserData({
+        address: newDataUser.address
+          ? newDataUser.address
+          : currentDataUser.address,
+        email: newDataUser.email ? newDataUser.email : currentDataUser.email,
+        fullName: newDataUser.fullName
+          ? newDataUser.fullName
+          : currentDataUser.fullName,
+      })
+    );
+
     const data = await fetchApi.put('/user/update', {
-      ...currentDataUser,
       address: newDataUser.address
         ? newDataUser.address
         : currentDataUser.address,
       email: newDataUser.email ? newDataUser.email : currentDataUser.email,
+      fullName: newDataUser.fullName
+        ? newDataUser.fullName
+        : currentDataUser.fullName,
     });
   };
 
@@ -45,6 +64,20 @@ export const CardUser: FC<IProps> = ({ fullName, address, email, edit }) => {
         >
           {({ handleChange }: any) => (
             <Form>
+              {isEditing && (
+                <div className="flex items-center gap-4 h-12">
+                  <>
+                    <BodyBold color="text-white/70 w-28">Nombre:</BodyBold>
+                    <InputText
+                      label=""
+                      className="bg-opacity-40 font-bold placeholder:text-white/80"
+                      placeholder={fullName}
+                      name="fullName"
+                      onChange={handleChange}
+                    />
+                  </>
+                </div>
+              )}
               <div className="flex items-center gap-4 h-12">
                 <BodyBold color="text-white/70 w-28">Direccion:</BodyBold>
 

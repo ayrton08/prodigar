@@ -8,6 +8,8 @@ import { CardUser } from '../../components/CardUser';
 import { useMe } from '../../hooks/index';
 import { useAppSelector } from '../../hooks/redux-toolkit';
 import { RootState } from '../../store/store';
+import { MainButton } from '../../ui/buttons/index';
+import { useState } from 'react';
 
 const ProfilePage = () => {
   const {
@@ -24,19 +26,23 @@ const ProfilePage = () => {
       </Head>
 
       <Layout>
-        <div className="xl:w-2/3 w-full flex gap-20 px-4 md:px-10 pt-10 flex-col md:flex-row items-center justify-center justify-self-center lg:px-0">
+        <div className="xl:w-2/3 w-full flex md:gap-20 px-4 md:px-10 pt-10 flex-col md:flex-row items-center justify-center justify-self-center lg:px-0">
           <div className="lg:w-1/2 container-page flex flex-col justify-center items-center gap-10">
             <Image
               src={avatar}
               alt="profile"
-              className=" w-32 md:w-48 rounded-full "
+              className=" w-36 md:w-48 rounded-full "
               width={300}
               height={300}
             />
             <Subtitle>{fullName}</Subtitle>
           </div>
-          <div className=" xl:w-1/2 w-full mx-auto flex items-center justify-center">
-            <CardUser address={address || 'no address'} email={email} />
+          <div className=" xl:w-1/2 w-full mx-auto grid gap-4 items-center xl:max-w-[650px]">
+            <CardUser
+              address={address || 'no address'}
+              email={email}
+              fullName={fullName}
+            />
           </div>
         </div>
       </Layout>

@@ -119,3 +119,12 @@ export async function userPublishedItem() {
     return error;
   }
 }
+
+export async function searchItemsByLocation(lat: number, lng: number) {
+  try {
+    const data = await fetchAPI(`/search?lat=${lat}&lng=${lng}`);
+    return data;
+  } catch (error) {
+    return error;
+  }
+}

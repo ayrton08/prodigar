@@ -4,14 +4,13 @@ import { useState } from "react";
 import { PostNearMeForm } from "./ObjectsNearMeForm";
 import { BodyBold, LargeBold } from "ui/typography";
 import { Edit, Remove } from "ui/icons";
-import { useAppSelector } from "@/hooks/redux-toolkit";
-import { RootState } from "@/store";
-import { useMe } from "@/hooks";
+// import { useAppSelector } from "@/hooks/redux-toolkit";
+// import { RootState } from "@/store";
+// import { useMe } from "@/hooks";
 
 type propsObjectCard = {
   img: string;
   name: string;
-  location: string;
   state: string;
   id?: number;
   last_location_lat?: string | number;
@@ -22,8 +21,7 @@ export const ObjectCard = (props: propsObjectCard) => {
   const router = useRouter();
   const [modalOn, setModalOn] = useState(false);
   const { img, name, state, id } = props;
-  const dataUser = useMe()
-  
+  // const dataUser = useMe();
 
   const clicked = () => {
     setModalOn(true);

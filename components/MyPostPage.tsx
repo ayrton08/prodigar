@@ -17,7 +17,6 @@ export const MyPost = () => {
           {res?.data?.map((r: any) => (
             <ObjectCard
               img={r.imgURL}
-              location={"Mendoza"}
               name={r.title}
               state={r.state}
               id={r.id}

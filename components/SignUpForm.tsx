@@ -1,25 +1,25 @@
-import { useState } from "react";
-import { Form, Formik } from "formik";
-import * as yup from "yup";
-import { useRouter } from "next/router";
-import { RootState } from "store/store";
-import { setUserData } from "store";
-import { useAppDispatch, useAppSelector } from "hooks/redux-toolkit";
-import { sendCodeSignUp } from "lib/api";
-import { MainButton } from "ui/buttons";
-import { InputText } from "ui/text-field";
-import { Loader } from "ui/loaders";
+import { useState } from 'react';
+import { Form, Formik } from 'formik';
+import * as yup from 'yup';
+import { useRouter } from 'next/router';
+import { RootState } from 'store/store';
+import { setUserData } from 'store';
+import { useAppDispatch, useAppSelector } from 'hooks/redux-toolkit';
+import { sendCodeSignUp } from 'lib/api';
+import { MainButton } from 'ui/buttons';
+import { InputText } from 'ui/text-field';
+import { Loader } from 'ui/loaders';
 
 interface InitialValues {
   email: string;
-  fullname: string;
+  fullName: string;
   address: string;
 }
 
 const initialValues = {
-  email: "",
-  fullname: "",
-  address: "",
+  email: '',
+  fullName: '',
+  address: '',
 };
 
 const schema = yup.object().shape({
@@ -40,8 +40,8 @@ export const SignUpForm = () => {
 
     const data: any = await sendCodeSignUp(
       userData.email,
-      userData.fullname,
-      userData.address ? userData.address : ""
+      userData.fullName,
+      userData.address ? userData.address : ''
     );
 
     if (data) {
@@ -49,7 +49,7 @@ export const SignUpForm = () => {
     }
 
     if (data.status >= 200 && data.status < 300) {
-      router.push("/login");
+      router.push('/login');
     }
   };
 
@@ -87,7 +87,7 @@ export const SignUpForm = () => {
           />
 
           <MainButton type="submit">
-            {loader ? <Loader /> : "Continuar"}
+            {loader ? <Loader /> : 'Continuar'}
           </MainButton>
         </Form>
       )}

@@ -1,6 +1,5 @@
 import { Layout } from '../../ui/layout/index';
 import { PostForm } from '../../components/PostForm';
-import { EditForm } from '../../components/EditForm';
 
 export const ItemPage = () => {
   return (

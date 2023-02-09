@@ -1,9 +1,10 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { useState } from "react";
-import { PostNearMeForm } from "./ObjectsNearMeForm";
-import { BodyBold, LargeBold } from "ui/typography";
-import { Edit, Remove } from "ui/icons";
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { useState } from 'react';
+import { PostNearMeForm } from './ObjectsNearMeForm';
+import { BodyBold, LargeBold } from 'ui/typography';
+import { Edit, Remove } from 'ui/icons';
+import Image from 'next/image';
 // import { useAppSelector } from "@/hooks/redux-toolkit";
 // import { RootState } from "@/store";
 // import { useMe } from "@/hooks";
@@ -30,7 +31,7 @@ export const ObjectCard = (props: propsObjectCard) => {
   return (
     <div className="shadow-xl rounded-xl hover:shadow-2xl hover:shadow-custom-blue md:w-72">
       <div>
-        <img
+        <Image
           src={img}
           alt="object"
           className="h-[250px] w-[100%] object-cover rounded-md hover:bg-sky-700"
@@ -41,18 +42,18 @@ export const ObjectCard = (props: propsObjectCard) => {
         <div className="grid gap-2">
           <LargeBold color="">{name}</LargeBold>
 
-          <BodyBold color={state == "PUB" ? "text-green-600" : "text-red-500"}>
+          <BodyBold color={state == 'PUB' ? 'text-green-600' : 'text-red-500'}>
             {state}
           </BodyBold>
         </div>
 
-        {router.asPath == "/my-post" ? (
+        {router.asPath == '/my-post' ? (
           <div className="grid gap-3">
             <Link href={`/item/${id}`}>
-              <Edit size={"w-7 h-7"} color="stroke-yellow-500" />
+              <Edit size={'w-7 h-7'} color="stroke-yellow-500" />
             </Link>
 
-            <Remove size={"w-7 h-7"} color="stroke-red-500" />
+            <Remove size={'w-7 h-7'} color="stroke-red-500" />
           </div>
         ) : (
           <>

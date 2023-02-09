@@ -32,12 +32,10 @@ export const LoginForm = () => {
   const dispatch = useAppDispatch();
 
   const handleEmail = async (values: InitialEmailValue) => {
-    setLoader(true);
     dispatch(setUserData({ email: values.email, fullname: "", address: "" }));
 
     try {
       await sendCodeLogin(values.email);
-      setLoader(false);
     } catch (error) {
       return error;
     }

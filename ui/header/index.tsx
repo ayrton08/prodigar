@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { BurguerButton } from "ui/buttons";
-import { Large, Subtitle } from "../typography";
-import { Logo } from "../icons";
-import Link from "next/link";
-import { useGetToken, useMe } from "hooks";
-// import { useAppSelector } from "hooks/redux-toolkit";
-// import { RootState } from "store";
-import { removeToken } from "@/lib/api";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import { removeToken } from "lib/api";
+import { useGetToken, useMe } from "hooks";
+import { BurguerButton } from "ui/buttons";
+import { Large, Subtitle } from "ui/typography";
+import { Logo } from "ui/icons";
 
 export const Header = () => {
   const router = useRouter();

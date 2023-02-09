@@ -1,8 +1,12 @@
 import { useRouter } from "next/router";
-import { Body, BodyBold, LargeBold } from "ui/typography";
-import { Edit } from "ui/icons";
+import Link from "next/link";
 import { useState } from "react";
 import { PostNearMeForm } from "./ObjectsNearMeForm";
+import { BodyBold, LargeBold } from "ui/typography";
+import { Edit, Remove } from "ui/icons";
+import { useAppSelector } from "@/hooks/redux-toolkit";
+import { RootState } from "@/store";
+import { useMe } from "@/hooks";
 
 type propsObjectCard = {
   img: string;
@@ -17,20 +21,13 @@ type propsObjectCard = {
 export const ObjectCard = (props: propsObjectCard) => {
   const router = useRouter();
   const [modalOn, setModalOn] = useState(false);
+  const { img, name, state, id } = props;
+  const dataUser = useMe()
+  
 
   const clicked = () => {
     setModalOn(true);
   };
-  // const [petData, setPetData] = useObjectData();
-  const {
-    img,
-    name,
-    location,
-    state,
-    id,
-    last_location_lat,
-    last_location_lng,
-  } = props;
 
   return (
     <div className="shadow-xl rounded-xl hover:shadow-2xl hover:shadow-custom-blue md:w-72">
@@ -43,20 +40,22 @@ export const ObjectCard = (props: propsObjectCard) => {
       </div>
 
       <div className="flex justify-between items-center p-5">
-        <div>
+        <div className="grid gap-2">
           <LargeBold color="">{name}</LargeBold>
-          <Body>{location}</Body>
-          <span className="">
-            <BodyBold
-              color={state == "Disponible" ? "text-green-600" : "text-red-500"}
-            >
-              {state}
-            </BodyBold>
-          </span>
+
+          <BodyBold color={state == "PUB" ? "text-green-600" : "text-red-500"}>
+            {state}
+          </BodyBold>
         </div>
 
         {router.asPath == "/my-post" ? (
-          <Edit size={"w-7 h-7"} color="stroke-red-500" />
+          <div className="grid gap-3">
+            <Link href={`/item/${id}`}>
+              <Edit size={"w-7 h-7"} color="stroke-yellow-500" />
+            </Link>
+
+            <Remove size={"w-7 h-7"} color="stroke-red-500" />
+          </div>
         ) : (
           <>
             <div className="grid">

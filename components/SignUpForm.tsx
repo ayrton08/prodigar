@@ -41,7 +41,7 @@ export const SignUpForm = () => {
     const data: any = await sendCodeSignUp(
       userData.email,
       userData.fullname,
-      userData.address
+      userData.address ? userData.address : ""
     );
 
     if (data) {

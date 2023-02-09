@@ -3,7 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface userData {
   email: string;
   fullname: string;
-  address: string;
+  address?: string;
+  id?: number;
 }
 
 interface userDataState {
@@ -15,10 +16,11 @@ const initialState: userDataState = {
     email: "",
     fullname: "",
     address: "",
+    id: Number("")
   },
 };
 
-export const SignUpSlice = createSlice({
+export const userDataSlice = createSlice({
   name: "userData",
   initialState: initialState,
   reducers: {
@@ -28,4 +30,4 @@ export const SignUpSlice = createSlice({
   },
 });
 
-export const { setUserData } = SignUpSlice.actions;
+export const { setUserData } = userDataSlice.actions;

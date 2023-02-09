@@ -20,7 +20,6 @@ export async function fetchAPI(input: RequestInfo | URL, options?: any) {
   }
 
   const res = await fetch(url, newOptions);
-  console.log({ res });
   if (res.status >= 200 && res.status < 300) {
     const data = await res.json();
     return { data, status: res.status };
@@ -107,8 +106,16 @@ export async function getMe() {
       const data = await res.json();
       return data;
     } catch (error) {
-      console.log(error);
       return error;
     }
+  }
+}
+
+export async function userPublishedItem() {
+  try {
+    const data = await fetchAPI("/user/items");
+    return data;
+  } catch (error) {
+    return error;
   }
 }

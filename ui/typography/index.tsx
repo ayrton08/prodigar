@@ -34,9 +34,9 @@ export const Large = ({ children, color }: any) => {
   );
 };
 
-export const LargeBold = ({ children, color }: any) => {
+export const LargeBold = ({ children, color, align }: any) => {
   return (
-    <p className={'font-montserrat text-xl font-bold ' + color}>{children}</p>
+    <p className={`font-montserrat text-xl font-bold text-${align} ` + color}>{children}</p>
   );
 };
 

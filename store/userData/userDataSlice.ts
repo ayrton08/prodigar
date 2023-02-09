@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface userData {
   email: string;
-  fullname: string;
+  fullName: string;
   address?: string;
   id?: number;
 }
@@ -13,15 +13,15 @@ interface userDataState {
 
 const initialState: userDataState = {
   userData: {
-    email: "",
-    fullname: "",
-    address: "",
-    id: Number("")
+    email: '',
+    fullName: '',
+    address: '',
+    id: Number(''),
   },
 };
 
 export const userDataSlice = createSlice({
-  name: "userData",
+  name: 'userData',
   initialState: initialState,
   reducers: {
     setUserData: (state, { payload }: PayloadAction<userData>) => {

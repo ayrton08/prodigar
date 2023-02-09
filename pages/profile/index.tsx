@@ -1,12 +1,19 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { Layout } from '../ui/layout/index';
-import { Subtitle, Small, BodyBold } from '../ui/typography/index';
+import { Layout } from '../../ui/layout/index';
+import { Subtitle, Small, BodyBold } from '../../ui/typography/index';
 
 import avatar from '@/public/avatar.svg';
-import { CardUser } from '../components/CardUser';
+import { CardUser } from '../../components/CardUser';
+import { useMe } from '../../hooks/index';
+import { useAppSelector } from '../../hooks/redux-toolkit';
+import { RootState } from '../../store/store';
 
-const post = () => {
+const ProfilePage = () => {
+  const {
+    userData: { fullName, email, address },
+  } = useAppSelector((state: RootState) => state.userData);
+
   return (
     <>
       <Head>
@@ -26,14 +33,10 @@ const post = () => {
               width={300}
               height={300}
             />
-            <Subtitle>Ayrton Juarez</Subtitle>
+            <Subtitle>{fullName}</Subtitle>
           </div>
           <div className=" xl:w-1/2 w-full mx-auto flex items-center justify-center">
-            <CardUser
-              address="El Dorado 370"
-              city="Puerto Rico"
-              email="ayrton@gmail.com"
-            />
+            <CardUser address={address || 'no address'} email={email} />
           </div>
         </div>
       </Layout>
@@ -41,4 +44,4 @@ const post = () => {
   );
 };
 
-export default post;
+export default ProfilePage;

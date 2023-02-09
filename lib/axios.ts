@@ -1,7 +1,16 @@
 import axios from 'axios';
 
 const fetchApi = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://prodigar-api.vercel.app/api',
+});
+
+fetchApi.interceptors.request.use((config: any) => {
+  config.headers = {
+    ...config.headers,
+    Authorization: 'bearer ' + localStorage.getItem('auth_token'),
+  };
+
+  return config;
 });
 
 export default fetchApi;

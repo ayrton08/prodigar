@@ -6,11 +6,11 @@ export const ItemPage = () => {
   return (
     <Layout>
       <div className="w-full flex justify-center">
-        <EditForm
+        {/* <EditForm
           description="Hola esto es una mesa"
           fullname="Ayrton"
           item="Mesa"
-        />
+        /> */}
       </div>
     </Layout>
   );

@@ -117,7 +117,7 @@ export const EditForm: FC<IEditForm> = ({ description, fullname, item }) => {
             </button>
             <div
               id="popup-modal"
-              tabindex="-1"
+              tabIndex={-1}
               className="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
             >
               <div className="relative w-full h-full max-w-md md:h-auto">

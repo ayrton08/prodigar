@@ -26,18 +26,15 @@ export function Mapbox({ edit, location }: IMapbox) {
 
   const [locationUpdate, setlocationUpdate] = useState(false);
 
-  const [markerLat, setMarkerLat] = useState();
-  const [markerLng, setMarkerLng] = useState();
-
   const marker = useRef<any>(null);
 
   useEffect(() => {
     if (location?.lat && location.lng) {
       setLat(location?.lat as number);
       setLng(location?.lng as number);
-      setZoom(14)
+      setZoom(14);
     }
-  }, [location]);
+  }, []);
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
@@ -63,14 +60,11 @@ export function Mapbox({ edit, location }: IMapbox) {
 
       dispatch(setLocation({ ...coordinates }));
 
-      setMarkerLat(coordinates.lat);
-      setMarkerLng(coordinates.lng);
-
       marker?.current?.remove();
       marker.current = new mapboxgl.Marker();
-      marker.current.setLngLat(coordinates).addTo(map.current as any);
+      marker.current.setLngLat(coordinates).addTo(map.current);
     });
-  }, [dispatch, edit, location?.lat, location?.lng, locationUpdate]);
+  }, [dispatch, edit, locationUpdate, zoom, location]);
 
   const myLocation = (e: any) => {
     e.preventDefault();

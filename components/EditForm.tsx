@@ -47,9 +47,11 @@ export const EditForm: FC<Item> = ({
   lat,
   lng,
 }) => {
+
   const { picture, location } = useAppSelector(
     (state: RootState) => state.items
   );
+
 
   const handlerForm = async (values: any) => {
     console.log(values);

@@ -7,11 +7,7 @@ import { LargeBold, Subtitle, Title } from 'ui/typography';
 import { ObjectCard } from './ObjectCard';
 
 export const MyPost = () => {
-
   const res = useUserPublished();
-
-  console.log(res);
-  
 
   return (
     <section className="min-h-[50vh] px-8 pt-10 md:pt-0 pb-28 flex flex-col gap-12 center md:gap-20 md:w-[700px] md:grid md:col-[none] md:min-h-[50vh] ">

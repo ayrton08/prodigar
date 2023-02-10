@@ -86,7 +86,7 @@ export const Dropzone = ({ edit, url }: IDropzone) => {
         />
       )}
 
-      {edit && (
+      {edit && !picture && (
         <Image
           src={url || ''}
           width={500}

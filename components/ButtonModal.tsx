@@ -9,7 +9,7 @@ export default function ButtonModal({
   children: string;
   onClick: any;
 }) {
-  let [isOpen, setIsOpen] = useState(true);
+  let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);

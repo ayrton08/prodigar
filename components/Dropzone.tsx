@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { MainButton } from '../ui/buttons/index';
 import Image from 'next/image';
@@ -32,6 +32,8 @@ export const Dropzone = ({ edit, url }: IDropzone) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
   });
+
+  const { ref, ...rootProps } = getRootProps();
 
   return (
     <div className="grid gap-3">
@@ -98,11 +100,11 @@ export const Dropzone = ({ edit, url }: IDropzone) => {
       )}
 
       {edit ? (
-        <MainButton {...getRootProps()} type="button">
+        <MainButton {...rootProps} type="button">
           Cambiar imagen
         </MainButton>
       ) : (
-        <MainButton {...getRootProps()} type="button">
+        <MainButton {...rootProps} type="button">
           {picture ? 'Cambiar imagen' : 'Agregar imagen'}
         </MainButton>
       )}

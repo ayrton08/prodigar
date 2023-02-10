@@ -1,8 +1,7 @@
-import Head from "next/head";
-import { Layout } from "../../ui/layout/index";
-import { ReportForm } from "../../components/ReportForm";
-import { PostForm } from "../../components/PostForm";
-import { Title, Subtitle } from "../../ui/typography/index";
+import Head from 'next/head';
+import { Layout } from '../../ui/layout/index';
+import { PostForm } from '../../components/PostForm';
+import { Subtitle } from '../../ui/typography/index';
 
 const post = () => {
   return (

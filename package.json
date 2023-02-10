@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.10",
     "@mapbox/mapbox-sdk": "^0.14.0",
     "@next/font": "13.1.2",
     "@reduxjs/toolkit": "^1.9.2",

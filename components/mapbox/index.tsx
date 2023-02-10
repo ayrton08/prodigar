@@ -5,15 +5,16 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { SuccessButton } from '../../ui/buttons';
 import { Small } from '../../ui/typography';
-import { setLocation } from '@/store';
+import { Location, setLocation } from '@/store';
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
 
 interface IMapbox {
   edit?: boolean;
+  location?: Location;
 }
 
-export function Mapbox({ edit }: IMapbox) {
+export function Mapbox({ edit, location }: IMapbox) {
   const dispatch = useAppDispatch();
 
   const mapContainer = useRef(null);
@@ -30,7 +31,13 @@ export function Mapbox({ edit }: IMapbox) {
 
   const marker = useRef<any>(null);
 
-  // const [newLocation, setNewLocation] = useState();
+  useEffect(() => {
+    if (location?.lat && location.lng) {
+      setLat(location?.lat as number);
+      setLng(location?.lng as number);
+      setZoom(14)
+    }
+  }, [location]);
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
@@ -63,7 +70,7 @@ export function Mapbox({ edit }: IMapbox) {
       marker.current = new mapboxgl.Marker();
       marker.current.setLngLat(coordinates).addTo(map.current as any);
     });
-  }, [dispatch, locationUpdate]);
+  }, [dispatch, edit, location?.lat, location?.lng, locationUpdate]);
 
   const myLocation = (e: any) => {
     e.preventDefault();

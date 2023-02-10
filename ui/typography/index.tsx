@@ -62,17 +62,6 @@ export const Small = ({ children, color, md }: any) => {
   );
 };
 
-// export const SpanError = styled.span`
-//   color: var(--danger);
-//   margin-top: 14px;
-//   text-align: center;
-//   font-weight: 600;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   gap: 5px;
-// `;
-
 export const SpanError = ({children, margin} : any) => {
   return (
     <span className={`text-red-500 text-center font-bold font-montserrat ${margin}`}>{children}</span>

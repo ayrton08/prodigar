@@ -21,6 +21,8 @@ export const PostNearMe = () => {
         setRes(res);
         setLoader(false);
       }
+
+      console.log({ res });
     });
   };
 
@@ -38,14 +40,16 @@ export const PostNearMe = () => {
                     img={r.imgURL}
                     name={r.title}
                     state={r.state}
-                    key={r.id}
+                    key={r.objectID}
+                    id={Number(r.objectID)}
+                    email={r.email}
                   />
                 )
               )}
             </div>
           ) : (
             <Subtitle align={"center"} color={"text-blue-500"}>
-              Todavía no hay publicados objetos cerca tuyo
+              Todavía no hay objectos publicados cerca tuyo
             </Subtitle>
           )}
         </div>

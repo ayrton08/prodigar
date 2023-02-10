@@ -128,3 +128,17 @@ export async function searchItemsByLocation(lat: number, lng: number) {
     return error;
   }
 }
+
+export async function sendEmailContact(itemId: number, newContactData: any) {
+  console.log({newContactData})
+  try {
+    const data = await fetchAPI(`/contact/${itemId}`, {
+      method: "POST",
+      body:  newContactData ,
+    });
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}

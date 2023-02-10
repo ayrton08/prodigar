@@ -1,9 +1,12 @@
-import { MainButton } from "ui/buttons";
-import { useRouter } from "next/router";
-import { InputText } from "ui/text-field";
+import { useState } from "react";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
-import { X } from "@/ui/icons";
+import { sendEmailContact } from "@/lib/api";
+import { MainButton } from "ui/buttons";
+import { InputText } from "ui/text-field";
+import { X } from "ui/icons";
+import { SpanSuccess, SpanError } from "@/ui/typography";
+import { Loader } from "@/ui/loaders";
 
 interface InitialValues {
   fullname: string;
@@ -27,14 +30,37 @@ const schema = yup.object({
   message: yup.string(),
 });
 
-export const PostNearMeForm = ({ setModalOn }: any) => {
-  const router = useRouter();
+export const PostNearMeForm = ({ setModalOn, props }: any) => {
+  const [loader, setLoader] = useState(false);
+  const [error, setError] = useState(null) as any;
+  const [success, setSuccess] = useState(null) as any;
 
   const handleSubmit = async (values: InitialValues) => {
-    // const emailValue = e.target.email.value;
-    // setEmail(emailValue);
-    console.log(values);
-    setModalOn(false);
+    setLoader(true);
+    setError(null);
+
+    const contactData = {
+      fullName: values.fullname,
+      phoneNumber: Number(values.phone),
+      email: values.email,
+      message: values.message,
+      itemTitle: props.name,
+      itemEmail: props.email,
+    };
+
+    const createContact: any = await sendEmailContact(props.id, contactData);
+
+    if (createContact.status >= 200 && createContact.status < 300) {
+      setLoader(false);
+      setSuccess("Email enviado con éxito! Se contactaran contigo.");
+
+      setTimeout(() => {
+        setModalOn(false);
+      }, 2000);
+    } else {
+      setLoader(false);
+      setError("No fue posible enviar el email.");
+    }
   };
 
   return (
@@ -94,7 +120,11 @@ export const PostNearMeForm = ({ setModalOn }: any) => {
                   onChange={handleChange}
                 />
 
-                <MainButton type="submit">Continuar</MainButton>
+                <MainButton type="submit">
+                  {loader ? <Loader /> : "Continuar"}
+                </MainButton>
+                <SpanSuccess>{success}</SpanSuccess>
+                <SpanError>{error}</SpanError>
               </Form>
             )}
           </Formik>

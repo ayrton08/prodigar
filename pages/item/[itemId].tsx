@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import fetchApi from '../../lib/axios';
 import { EditForm, Item } from '@/components/EditForm';
 import { useState, useEffect } from 'react';
+import { Loader } from '../../ui/loaders/index';
 
 export const ItemPage = () => {
   const [item, setItem] = useState<Item>();
@@ -22,14 +23,7 @@ export const ItemPage = () => {
   return (
     <Layout>
       <div className="w-full flex justify-center">
-        <EditForm
-          description={item?.description || ''}
-          fullName="Ayrton"
-          title="Mesa"
-          imgURL={item?.imgURL}
-          lat={item?.lat as number}
-          lng={item?.lng as number}
-        />
+        {item ? <EditForm {...item!} /> : <Loader />}
       </div>
     </Layout>
   );

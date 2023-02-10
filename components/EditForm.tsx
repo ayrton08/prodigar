@@ -11,6 +11,7 @@ import { useAppSelector } from '../hooks/redux-toolkit';
 import { FC } from 'react';
 import { Subtitle } from '@/ui/typography';
 import ButtonModal from './ButtonModal';
+import fetchApi from '../lib/axios';
 
 export interface Item {
   id?: number;
@@ -20,11 +21,22 @@ export interface Item {
   imgURL?: string;
   lat: number;
   lng: number;
-  state?: string;
+  state?: 'PUB' | 'DEL';
   email?: string;
   userId?: number;
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export interface UpdateItem {
+  fullName: string;
+  title: string;
+  description: string;
+  lat: number;
+  lng: number;
+  state: string;
+  email: string;
+  userId: number;
 }
 
 const initialValues = {
@@ -33,56 +45,72 @@ const initialValues = {
   description: '',
 };
 
-const schema = yup.object().shape({
-  fullname: yup.string().required(),
-  item: yup.string().required(),
-  description: yup.string().required(),
-});
-
-export const EditForm: FC<Item> = ({
-  description,
-  title,
-  fullName,
-  imgURL,
-  lat,
-  lng,
-}) => {
+export const EditForm: FC<Item> = (item) => {
   const { picture, location } = useAppSelector(
     (state: RootState) => state.items
   );
 
-  const handlerForm = async (values: any) => {
-    console.log(values);
+  const { description, id, fullName, title, lat, lng, imgURL, userId, email } =
+    item;
+
+  const currentItemUpdated: Partial<Item> = {
+    description,
+    email,
+    fullName,
+    title,
+    lat,
+    lng,
+    state: 'PUB',
+    userId,
   };
 
-  const handlerDelete = () => {
-    console.log('Eliminando');
-    // todo: fetch para eliminar la publicacion
+  const updateItem = async (values: any) => {
+    const { data } = await fetchApi.put(`/item/update/${id}`, {
+      ...currentItemUpdated,
+      ...values,
+      fullName: values.fullName || currentItemUpdated.fullName,
+      title: values.title || currentItemUpdated.title,
+      description: values.description || currentItemUpdated.description,
+      imgURL: picture || item.imgURL,
+    });
+    console.log('res', data);
+  };
+
+  const deleteItem = async () => {
+    const { data } = await fetchApi.put(`/item/update/${id}`, {
+      ...currentItemUpdated,
+      state: 'DEL',
+    });
+    console.log('res', data);
   };
 
   return (
-    <div className="flex flex-col items-center px-3 gap-4 w-full">
+    <div className="flex flex-col items-center px-3 gap-4 w-full max-w-[400px] md:max-w-[620px]">
       <Subtitle>{title}</Subtitle>
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values) => handlerForm(values)}
-        validationSchema={schema}
+        onSubmit={async (values) => updateItem(values)}
+        // validationSchema={schema}
       >
         {({ handleChange }) => (
-          <Form className="grid gap-2 md:gap-4 justify-items-center items-center m-0 w-full max-w-[400px] md:max-w-[600px]">
+          <Form
+            className="grid gap-2 md:gap-4 justify-items-center items-center m-0 w-full max-w-[400px] md:max-w-[600px]"
+            noValidate
+          >
             <div className="w-full flex flex-col gap-4 lg:flex-row">
               <div className="w-full grid  items-center gap-3">
                 <InputText
                   placeholder={fullName}
                   label="Tu nombre"
-                  name="fullname"
+                  name="fullName"
                   onChange={handleChange}
                   className="placeholder:text-black"
+                  type="text"
                 />
                 <InputText
                   placeholder={title}
                   label="Título (Objeto que querés donar)"
-                  name="item"
+                  name="title"
                   onChange={handleChange}
                   className="placeholder:text-black"
                 />
@@ -107,13 +135,10 @@ export const EditForm: FC<Item> = ({
               <Link href="/">Cancelar</Link>
             </CancelButton>
             <SuccessButton type="submit">Actualizar</SuccessButton>
-
-            <ButtonModal onClick={handlerDelete}>
-              Eliminar Publicacion
-            </ButtonModal>
           </Form>
         )}
       </Formik>
+      <ButtonModal onClick={deleteItem}>Eliminar Publicacion</ButtonModal>
     </div>
   );
 };

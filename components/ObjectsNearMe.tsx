@@ -9,7 +9,7 @@ import { BodyBold, Subtitle, Title } from "ui/typography";
 export const PostNearMe = () => {
   const [loader, setLoader] = useState(false);
   const [res, setRes] = useState(null) as any;
-
+  
   const handleClick = () => {
     setLoader(true);
     navigator.geolocation.getCurrentPosition(async (geolocation) => {
@@ -21,8 +21,6 @@ export const PostNearMe = () => {
         setRes(res);
         setLoader(false);
       }
-
-      console.log({ res });
     });
   };
 
@@ -37,10 +35,10 @@ export const PostNearMe = () => {
               {res.data.map((r: any) =>
                 r.state == "DEL" ? undefined : (
                   <ObjectCard
-                    img={r.imgURL}
-                    name={r.title}
+                    imgURL={r.imgURL}
+                    title={r.title}
                     state={r.state}
-                    key={r.objectID}
+                    key={r.objectID || r.title}
                     id={Number(r.objectID)}
                     email={r.email}
                   />

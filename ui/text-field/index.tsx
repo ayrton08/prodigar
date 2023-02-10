@@ -4,7 +4,7 @@ interface IProps {
   label: string;
   placeholder?: string;
   id?: string;
-  type?: 'email' | 'text';
+  type?: 'email' | 'text' | 'number' | 'password';
   md?: string;
   onChange?: any;
   onKeyDown?: any;

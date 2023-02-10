@@ -1,6 +1,8 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
-import { MainButton, DeleteButton, SuccessButton } from '../ui/buttons/index';
+import { Remove } from "@/ui/icons";
+import { Dialog, Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
+import { Fragment, useState } from "react";
+import { MainButton, DeleteButton, SuccessButton } from "../ui/buttons/index";
 
 export default function ButtonModal({
   children,
@@ -9,6 +11,7 @@ export default function ButtonModal({
   children: string;
   onClick: any;
 }) {
+  const router = useRouter();
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -21,13 +24,19 @@ export default function ButtonModal({
 
   return (
     <>
-      <DeleteButton
-        type="button"
-        onClick={openModal}
-        className="rounded-md  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-      >
-        {children}
-      </DeleteButton>
+      {router.asPath !== "/my-post" ? (
+        <DeleteButton
+          type="button"
+          onClick={openModal}
+          className="rounded-md  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+        >
+          {children}
+        </DeleteButton>
+      ) : (
+        <button onClick={openModal}>
+          <Remove size={"w-7 h-7"} color="stroke-red-500" hover="hover:stroke-blue-500"  />
+        </button>
+      )}
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>

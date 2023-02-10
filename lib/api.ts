@@ -1,4 +1,5 @@
 export const BASE_URL = "https://prodigar-api.vercel.app/api";
+import type { propsObjectCard } from "components/ObjectCard";
 
 export async function fetchAPI(input: RequestInfo | URL, options?: any) {
   const url = BASE_URL + input;
@@ -120,6 +121,28 @@ export async function userPublishedItem() {
   }
 }
 
+export async function deleteItem(itemProps: propsObjectCard) {
+  const deleteItem = {
+    ...itemProps,
+    state: "DEL",
+  };
+
+  delete deleteItem.id;
+  try {
+    const data = await fetchAPI(`/item/update/${itemProps.id}`, {
+      method: "PUT",
+      body: deleteItem,
+    });
+    console.log(data);
+    if (data) {
+      location.reload();
+    }
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function searchItemsByLocation(lat: number, lng: number) {
   try {
     const data = await fetchAPI(`/search?lat=${lat}&lng=${lng}`);
@@ -130,11 +153,11 @@ export async function searchItemsByLocation(lat: number, lng: number) {
 }
 
 export async function sendEmailContact(itemId: number, newContactData: any) {
-  console.log({newContactData})
+  console.log({ newContactData });
   try {
     const data = await fetchAPI(`/contact/${itemId}`, {
       method: "POST",
-      body:  newContactData ,
+      body: newContactData,
     });
 
     return data;

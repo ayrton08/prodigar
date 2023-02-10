@@ -14,14 +14,17 @@ export const MyPost = () => {
         <div className="grid md:grid-cols-2 gap-10">
           {res?.data?.map((r: any) => (
             <ObjectCard
-              img={r.imgURL}
-              name={r.title}
-              state={r.state}
-              id={r.id}
-              last_location_lat={r.lat}
-              last_location_lng={r.lng}
-              key={r.id}
+              description={r.description}
               email={r.email}
+              fullName={r.fullName}
+              id={r.id}
+              imgURL={r.imgURL}
+              lat={r.lat}
+              lng={r.lng}
+              state={r.state}
+              title={r.title}
+              key={r.id}
+              userId={r.userId}
             />
           ))}
         </div>

@@ -12,9 +12,11 @@ export const ItemPage = () => {
   } = useRouter();
 
   useEffect(() => {
-    fetchApi.get<Item>(`/item/${itemId}`).then(({ data }) => {
-      setItem(data);
-    });
+    if (itemId) {
+      fetchApi.get<Item>(`/item/${itemId}`).then(({ data }) => {
+        setItem(data);
+      });
+    }
   }, [itemId]);
 
   return (

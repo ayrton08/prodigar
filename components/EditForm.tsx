@@ -12,6 +12,7 @@ import { FC } from 'react';
 import { Subtitle } from '@/ui/typography';
 import ButtonModal from './ButtonModal';
 import fetchApi from '../lib/axios';
+import { log } from 'console';
 
 export interface Item {
   id?: number;
@@ -58,8 +59,8 @@ export const EditForm: FC<Item> = (item) => {
     email,
     fullName,
     title,
-    lat,
-    lng,
+    lat: location.lat ? location.lat : lat,
+    lng: location.lng ? location.lng : lng,
     state: 'PUB',
     userId,
   };

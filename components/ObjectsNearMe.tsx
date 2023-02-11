@@ -25,13 +25,13 @@ export const PostNearMe = () => {
   };
 
   return (
-    <section className="min-h-[50vh] px-8 pt-10 md:pt-0 flex flex-col gap-12 center md:gap-20 md:w-[700px] md:grid md:col-[none] md:min-h-[50vh] ">
+    <section className="min-h-[50vh] px-8 pt-10 md:pt-0 flex flex-col gap-12 center md:gap-20 md:w-[800px] lg:w-full lg:max-w-[1500px] md:grid md:col-[none] md:min-h-[50vh] ">
       <Title align="center md:text-4xl">Objetos cerca tuyo</Title>
 
       {res !== null ? (
         <div>
           {res?.data?.length > 0 ? (
-            <div className="grid md:grid-cols-2 gap-10">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
               {res.data.map((r: any) =>
                 r.state == "DEL" ? undefined : (
                   <ObjectCard

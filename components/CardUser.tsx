@@ -1,4 +1,6 @@
 import { FC, useState } from 'react';
+import Image from 'next/image';
+
 import { BodyBold } from '../ui/typography/index';
 import { InputText } from '../ui/text-field/index';
 import fetchApi from '../lib/axios';
@@ -30,6 +32,8 @@ export const CardUser: FC<IProps> = ({ fullName, address, email, edit }) => {
   };
 
   const updateUser = async (newDataUser: IProps) => {
+    if (!newDataUser.address && !newDataUser.email && !newDataUser.fullName)
+      return;
     dispatch(
       setUserData({
         address: newDataUser.address
@@ -57,13 +61,13 @@ export const CardUser: FC<IProps> = ({ fullName, address, email, edit }) => {
 
   return (
     <div className=" w-full rounded-lg bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1 ">
-      <div className="h-full w-full bg-custom-blue/70 text-white px-6 py-12 min-h-50 grid gap-5 rounded-lg">
+      <div className="h-full w-full bg-custom-blue/70 text-white px-6 py-12 lg:py-6 min-h-50 grid gap-5 rounded-lg">
         <Formik
           initialValues={initialValue}
           onSubmit={async (values) => await updateUser(values)}
         >
-          {({ handleChange }: any) => (
-            <Form>
+          {({ handleChange }) => (
+            <Form className="grid">
               {isEditing && (
                 <div className="flex items-center gap-4 h-12">
                   <>
@@ -110,8 +114,13 @@ export const CardUser: FC<IProps> = ({ fullName, address, email, edit }) => {
               <MainButton
                 onClick={() => setIsEditing(!isEditing)}
                 type="submit"
-                className="mt-8"
+                className="mt-8 lg:h-10  text-gray-800"
               >
+                {isEditing ? (
+                  <i className="bx bx-save bx-sm mr-2"></i>
+                ) : (
+                  <i className="bx bx-edit bx-sm mr-2" />
+                )}
                 {isEditing ? 'Guardar' : 'Editar'}
               </MainButton>
             </Form>

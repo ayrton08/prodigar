@@ -5,7 +5,7 @@ import { PostNearMe } from "@/components/ObjectsNearMe";
 
 const PostNearMePage: NextPage = () => {
   return (
-    <Layout>
+    <Layout className="lg:flex lg:justify-center">
       <Head>
         <title>Objetos cerca mío - Prodigar</title>
       </Head>

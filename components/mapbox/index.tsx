@@ -33,7 +33,7 @@ export function Mapbox({ edit, location }: IMapbox) {
       setLng(location?.lng as number);
       setZoom(14);
     }
-  }, []);
+  }, [location?.lat, location?.lng]);
 
   useEffect(() => {
     map.current = new mapboxgl.Map({

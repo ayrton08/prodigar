@@ -8,7 +8,7 @@ export default function ButtonModal({
   children,
   onClick,
 }: {
-  children: string;
+  children?: string;
   onClick: any;
 }) {
   const router = useRouter();

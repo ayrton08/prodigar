@@ -4,7 +4,7 @@ import { Layout } from 'ui/layout';
 import { MyPost } from 'components/MyPostPage';
 import { useRouter } from 'next/router';
 import { Id, toast, ToastContainer } from 'react-toastify';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 
 const MyPostPage: NextPage = () => {
   const router = useRouter();
@@ -21,12 +21,13 @@ const MyPostPage: NextPage = () => {
   }, [router.query.item]);
 
   return (
-    <Layout>
+    <Layout className='lg:flex lg:justify-center'>
       <Head>
         <title>Mis Publicaciones - Prodigar</title>
       </Head>
       <MyPost />
-      <ToastContainer
+
+      {/* <ToastContainer
         position="bottom-left"
         autoClose={6000}
         hideProgressBar={false}
@@ -38,7 +39,7 @@ const MyPostPage: NextPage = () => {
         pauseOnHover
         className="font-bold"
         theme="colored"
-      />
+      /> */}
     </Layout>
   );
 };

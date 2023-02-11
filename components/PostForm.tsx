@@ -11,9 +11,9 @@ import { useAppSelector } from '../hooks/redux-toolkit';
 import fetchApi from '../lib/axios';
 import { useMe } from '../hooks/index';
 import { useState } from 'react';
-import { Item } from './EditForm';
 import { Loader } from '@/ui/loaders';
 import { useRouter } from 'next/router';
+import { Item } from '@/interfaces/Item';
 
 interface InitialValues {
   fullName?: string;

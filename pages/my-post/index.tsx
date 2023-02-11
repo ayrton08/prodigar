@@ -9,25 +9,38 @@ import { useEffect } from 'react';
 const MyPostPage: NextPage = () => {
   const router = useRouter();
 
+  console.log(router);
+
   useEffect(() => {
-    if (router.query.item) {
+    if (router.query.status === 'PUB')
       toast.success(
         `La publicación se realizó con exitó, ${router.query.item} ya esta disponible en la zona indicada.`,
         {
           toastId: router.query.item as Id,
         }
       );
-    }
-  }, [router.query.item]);
+
+    if (router.query.status === 'DEL')
+      toast.error(
+        `La publicación se elimino, ${router.query.item} ya no esta disponible.`,
+        {
+          toastId: router.query.item as Id,
+        }
+      );
+    if (router.query.status === 'UPDATE')
+      toast.info(`${router.query.item} se actualizo correctamente.`, {
+        toastId: router.query.item as Id,
+      });
+  }, [router.query.item, router.query.status]);
 
   return (
-    <Layout className='lg:flex lg:justify-center'>
+    <Layout className="lg:flex lg:justify-center">
       <Head>
         <title>Mis Publicaciones - Prodigar</title>
       </Head>
       <MyPost />
 
-      {/* <ToastContainer
+      <ToastContainer
         position="bottom-left"
         autoClose={6000}
         hideProgressBar={false}
@@ -39,7 +52,7 @@ const MyPostPage: NextPage = () => {
         pauseOnHover
         className="font-bold"
         theme="colored"
-      /> */}
+      />
     </Layout>
   );
 };

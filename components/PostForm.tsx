@@ -10,10 +10,10 @@ import { RootState } from '../store/store';
 import { useAppSelector } from '../hooks/redux-toolkit';
 import fetchApi from '../lib/axios';
 import { useMe } from '../hooks/index';
-import { toast, ToastContainer } from 'react-toastify';
 import { useState } from 'react';
 import { Item } from './EditForm';
 import { Loader } from '@/ui/loaders';
+import { useRouter } from 'next/router';
 
 interface InitialValues {
   fullName?: string;
@@ -41,6 +41,8 @@ export const PostForm = () => {
 
   const { email, id } = useMe();
 
+  const router = useRouter();
+
   const [isSending, setIsSending] = useState(false);
 
   const handlerForm = async (values: InitialValues) => {
@@ -56,21 +58,12 @@ export const PostForm = () => {
     });
     setIsSending(false);
 
-    if (status === 200) {
-      toast.success(
-        `La publicación se realizó con exitó, ${values.title} ya esta disponible en la zona indicada.`,
-        {
-          position: 'bottom-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored',
-        }
-      );
-    }
+    router.push({
+      pathname: '/my-post',
+      query: {
+        item: values.title,
+      },
+    });
   };
 
   return (
@@ -121,19 +114,6 @@ export const PostForm = () => {
           </Form>
         )}
       </Formik>
-      <ToastContainer
-        position="bottom-left"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        className="font-bold"
-        theme="light"
-      />
     </>
   );
 };

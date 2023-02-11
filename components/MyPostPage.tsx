@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { useUserPublished } from "@/hooks";
-import { ObjectCard } from "./ObjectCard";
-import { SuccessButton } from "@/ui/buttons";
-import { LargeBold, Title } from "ui/typography";
+import Link from 'next/link';
+import { useUserPublished } from '@/hooks';
+import { ObjectCard } from './ObjectCard';
+import { SuccessButton } from '@/ui/buttons';
+import { LargeBold, Title } from 'ui/typography';
 
 export const MyPost = () => {
   const res = useUserPublished();
@@ -30,11 +30,11 @@ export const MyPost = () => {
         </div>
       ) : (
         <div className="grid gap-3">
-          <LargeBold align="center" color={"ligth-blue"}>
+          <LargeBold align="center" color={'ligth-blue'}>
             AÚN NO TIENES OBJETOS PUBLICADOS
           </LargeBold>
           <SuccessButton>
-            <Link href={"/item/post"}>Publicar Objeto</Link>
+            <Link href={'/item/post'}>Publicar Objeto</Link>
           </SuccessButton>
         </div>
       )}

@@ -1,6 +1,6 @@
+import { FC } from 'react';
 import Link from 'next/link';
 import { Form, Formik } from 'formik';
-import * as yup from 'yup';
 
 import { CancelButton, SuccessButton } from '@/ui/buttons';
 import { Dropzone } from './Dropzone';
@@ -8,11 +8,9 @@ import { Mapbox } from './mapbox/index';
 import { InputText } from '../ui/text-field/index';
 import { RootState } from '../store/store';
 import { useAppSelector } from '../hooks/redux-toolkit';
-import { FC } from 'react';
 import { Subtitle } from '@/ui/typography';
 import ButtonModal from './ButtonModal';
 import fetchApi from '../lib/axios';
-import { log } from 'console';
 
 export interface Item {
   id?: number;
@@ -74,7 +72,6 @@ export const EditForm: FC<Item> = (item) => {
       description: values.description || currentItemUpdated.description,
       imgURL: picture || item.imgURL,
     });
-    console.log('res', data);
   };
 
   const deleteItem = async () => {
@@ -82,7 +79,6 @@ export const EditForm: FC<Item> = (item) => {
       ...currentItemUpdated,
       state: 'DEL',
     });
-    console.log('res', data);
   };
 
   return (
@@ -91,7 +87,6 @@ export const EditForm: FC<Item> = (item) => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (values) => updateItem(values)}
-        // validationSchema={schema}
       >
         {({ handleChange }) => (
           <Form

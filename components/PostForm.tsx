@@ -10,6 +10,10 @@ import { RootState } from '../store/store';
 import { useAppSelector } from '../hooks/redux-toolkit';
 import fetchApi from '../lib/axios';
 import { useMe } from '../hooks/index';
+import { toast, ToastContainer } from 'react-toastify';
+import { useState } from 'react';
+import { Item } from './EditForm';
+import { Loader } from '@/ui/loaders';
 
 interface InitialValues {
   fullName?: string;
@@ -37,8 +41,11 @@ export const PostForm = () => {
 
   const { email, id } = useMe();
 
+  const [isSending, setIsSending] = useState(false);
+
   const handlerForm = async (values: InitialValues) => {
-    const { data } = await fetchApi.post('/item/new', {
+    setIsSending(true);
+    const { status } = await fetchApi.post<Item>('/item/new', {
       ...values,
       imgURL: picture,
       lat,
@@ -47,6 +54,23 @@ export const PostForm = () => {
       email,
       userId: id,
     });
+    setIsSending(false);
+
+    if (status === 200) {
+      toast.success(
+        `La publicación se realizó con exitó, ${values.title} ya esta disponible en la zona indicada.`,
+        {
+          position: 'bottom-left',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        }
+      );
+    }
   };
 
   return (
@@ -91,10 +115,25 @@ export const PostForm = () => {
             <CancelButton type="button">
               <Link href="/">Cancelar</Link>
             </CancelButton>
-            <SuccessButton type="submit">Publicar</SuccessButton>
+            <SuccessButton type="submit">
+              {isSending ? <Loader /> : 'Publicar'}
+            </SuccessButton>
           </Form>
         )}
       </Formik>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        className="font-bold"
+        theme="light"
+      />
     </>
   );
 };

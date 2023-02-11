@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Location {
+export interface Location {
   lng: number | null;
   lat: number | null;
 }

@@ -1,23 +1,25 @@
 import { useRef, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux-toolkit';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { Map, Marker } from 'mapbox-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { SuccessButton } from '../../ui/buttons';
 import { Small } from '../../ui/typography';
-import { setLocation } from '@/store';
+import { Location, setLocation } from '@/store';
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
 
 interface IMapbox {
   edit?: boolean;
+  location?: Location;
 }
 
-export function Mapbox({ edit }: IMapbox) {
+export function Mapbox({ edit, location }: IMapbox) {
   const dispatch = useAppDispatch();
 
-  const mapContainer = useRef(null);
-  const map: any = useRef();
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<Map>();
+  const marker = useRef<Marker>();
 
   const [lng, setLng] = useState(-63.988684);
   const [lat, setLat] = useState(-31.497542);
@@ -25,12 +27,13 @@ export function Mapbox({ edit }: IMapbox) {
 
   const [locationUpdate, setlocationUpdate] = useState(false);
 
-  const [markerLat, setMarkerLat] = useState();
-  const [markerLng, setMarkerLng] = useState();
-
-  const marker = useRef<any>(null);
-
-  // const [newLocation, setNewLocation] = useState();
+  useEffect(() => {
+    if (location?.lat && location.lng) {
+      setLat(location?.lat as number);
+      setLng(location?.lng as number);
+      setZoom(14);
+    }
+  }, [location?.lat, location?.lng]);
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
@@ -44,26 +47,26 @@ export function Mapbox({ edit }: IMapbox) {
   useEffect(() => {
     if (!map.current) return;
     map.current.on('move', () => {
-      setLng(map.current.getCenter().lng.toFixed(4));
-      setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
+      const lng = parseFloat(map?.current?.getCenter().lng.toFixed(4)!);
+      const lat = parseFloat(map?.current?.getCenter().lat.toFixed(4)!);
+      const zoom = parseFloat(map?.current?.getZoom().toFixed(2)!);
+      setLng(lng);
+      setLat(lat);
+      setZoom(zoom);
     });
   }, [locationUpdate]);
 
   useEffect(() => {
-    map.current.on('click', (e: any) => {
+    map.current?.on('click', (e: any) => {
       const coordinates = e.lngLat;
 
       dispatch(setLocation({ ...coordinates }));
 
-      setMarkerLat(coordinates.lat);
-      setMarkerLng(coordinates.lng);
-
       marker?.current?.remove();
       marker.current = new mapboxgl.Marker();
-      marker.current.setLngLat(coordinates).addTo(map.current as any);
+      marker.current.setLngLat(coordinates).addTo(map.current!);
     });
-  }, [dispatch, locationUpdate]);
+  }, [dispatch, edit, locationUpdate, zoom, location]);
 
   const myLocation = (e: any) => {
     e.preventDefault();
@@ -97,15 +100,7 @@ export function Mapbox({ edit }: IMapbox) {
           Go to my location 🗺️
         </SuccessButton>
       </div>
-      <div className="">
-        {/* <InputText
-          placeholder="Mendoza"
-          label="Ubicación"
-          // onChange={inputChangeHandler}
-          // onKeyDown={keydownInputHandler}
-        ></InputText>
-        <MainButton type="button">Buscar</MainButton> */}
-      </div>
+      <div className=""></div>
     </>
   );
 }

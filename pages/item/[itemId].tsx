@@ -1,16 +1,29 @@
 import { Layout } from '../../ui/layout/index';
-import { PostForm } from '../../components/PostForm';
-import { EditForm } from '../../components/EditForm';
+import { useRouter } from 'next/router';
+import fetchApi from '../../lib/axios';
+import { EditForm, Item } from '@/components/EditForm';
+import { useState, useEffect } from 'react';
+import { Loader } from '../../ui/loaders/index';
 
 export const ItemPage = () => {
+  const [item, setItem] = useState<Item>();
+
+  const {
+    query: { itemId },
+  } = useRouter();
+
+  useEffect(() => {
+    if (itemId) {
+      fetchApi.get<Item>(`/item/${itemId}`).then(({ data }) => {
+        setItem(data);
+      });
+    }
+  }, [itemId]);
+
   return (
     <Layout>
       <div className="w-full flex justify-center">
-        <EditForm
-          description="Hola esto es una mesa"
-          fullname="Ayrton"
-          item="Mesa"
-        />
+        {item ? <EditForm {...item!} /> : <Loader />}
       </div>
     </Layout>
   );

@@ -34,9 +34,9 @@ export const Large = ({ children, color }: any) => {
   );
 };
 
-export const LargeBold = ({ children, color }: any) => {
+export const LargeBold = ({ children, color, align }: any) => {
   return (
-    <p className={'font-montserrat text-xl font-bold ' + color}>{children}</p>
+    <p className={`font-montserrat text-xl font-bold text-${align} ` + color}>{children}</p>
   );
 };
 
@@ -61,3 +61,14 @@ export const Small = ({ children, color, md }: any) => {
     </p>
   );
 };
+
+export const SpanError = ({children, margin} : any) => {
+  return (
+    <span className={`text-red-500 text-center font-bold font-montserrat ${margin}`}>{children}</span>
+  )
+}
+export const SpanSuccess = ({children, margin} : any) => {
+  return (
+    <span className={`text-green-500 text-center font-bold font-montserrat ${margin}`}>{children}</span>
+  )
+}

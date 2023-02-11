@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { getMe, getSaveToken, userPublishedItem } from 'lib/api';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -58,3 +59,49 @@ export const useFetch = (): IUseFetch => {
 
   return { onFetch, isSending, notify };
 };
+
+export function useGetToken() {
+  const getToken = getSaveToken();
+  const [token, setToken] = useState() as any;
+
+  useEffect(() => {
+    setToken(getToken);
+  }, [getToken]);
+
+  return { token };
+}
+
+import { useAppDispatch, useAppSelector } from 'hooks/redux-toolkit';
+import { RootState, setUserData } from 'store';
+
+export function useMe() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMe();
+
+      dispatch(setUserData(data));
+    };
+    fetchData();
+  }, []);
+
+  const { userData } = useAppSelector((state: RootState) => state.userData);
+  return userData;
+}
+
+export function useUserPublished() {
+  const [res, setRes] = useState() as any;
+
+  const myPublishedObjects = async () => {
+    const data = await userPublishedItem();
+    await setRes(data);
+    return data;
+  };
+
+  useEffect(() => {
+    myPublishedObjects();
+  }, []);
+
+  return res;
+}

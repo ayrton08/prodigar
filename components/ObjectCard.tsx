@@ -1,73 +1,93 @@
-import { useRouter } from "next/router";
-import { Body, BodyBold, LargeBold } from "ui/typography";
-import { Edit } from "ui/icons";
-import { useState } from "react";
-import { PostNearMeForm } from "./ObjectsNearMeForm";
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { useState } from 'react';
+import { PostNearMeForm } from './ObjectsNearMeForm';
+import { deleteItem } from '@/lib/api';
+import { BodyBold, LargeBold } from 'ui/typography';
+import { Edit, Remove } from 'ui/icons';
+import Image from 'next/image';
+import ButtonModal from './ButtonModal';
 
-type propsObjectCard = {
-  img: string;
-  name: string;
-  location: string;
+export type propsObjectCard = {
+  description?: string;
+  fullName?: string;
+  imgURL: string;
+  title: string;
   state: string;
   id?: number;
-  last_location_lat?: string | number;
-  last_location_lng?: string | number;
+  key: number;
+  lat?: string | number;
+  lng?: string | number;
+  email?: string;
+  userId?: number;
 };
 
 export const ObjectCard = (props: propsObjectCard) => {
   const router = useRouter();
   const [modalOn, setModalOn] = useState(false);
-
-  const clicked = () => {
-    setModalOn(true);
-  };
-  // const [petData, setPetData] = useObjectData();
-  const {
-    img,
-    name,
-    location,
-    state,
-    id,
-    last_location_lat,
-    last_location_lng,
-  } = props;
+  const [prop, setProp] = useState() as any;
+  const { id, imgURL, title, state, email, lat, lng, fullName, description } =
+    props;
 
   return (
-    <div className="shadow-xl rounded-xl hover:shadow-2xl hover:shadow-custom-blue md:w-72">
+    <div className="shadow-xl rounded-xl hover:shadow-2xl hover:shadow-custom-blue md:w-72 lg:w-full">
       <div>
-        <img
-          src={img}
-          alt="object"
+        <Image
+          src={
+            imgURL.startsWith('https')
+              ? imgURL
+              : 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns='
+          }
+          title={title}
+          alt={`object-${title}`}
           className="h-[250px] w-[100%] object-cover rounded-md hover:bg-sky-700"
+          width={400}
+          height={400}
+          key={id}
         />
       </div>
 
       <div className="flex justify-between items-center p-5">
-        <div>
-          <LargeBold color="">{name}</LargeBold>
-          <Body>{location}</Body>
-          <span className="">
-            <BodyBold
-              color={state == "Disponible" ? "text-green-600" : "text-red-500"}
-            >
-              {state}
-            </BodyBold>
-          </span>
+        <div className="grid gap-2">
+          <LargeBold>{title}</LargeBold>
+
+          <BodyBold color={state == 'PUB' ? 'text-green-600' : 'text-red-500'}>
+            {state}
+          </BodyBold>
         </div>
 
-        {router.asPath == "/my-post" ? (
-          <Edit size={"w-7 h-7"} color="stroke-red-500" />
+        {router.asPath == '/my-post' ? (
+          <div className="grid gap-3">
+            <Link href={`/item/${id}`}>
+              <Edit
+                size={'w-7 h-7'}
+                color="stroke-yellow-500"
+                hover="hover:stroke-blue-500"
+              />
+            </Link>
+
+            <ButtonModal
+              onClick={async () => {
+                await deleteItem(props);
+              }}
+            ></ButtonModal>
+          </div>
         ) : (
           <>
             <div className="grid">
               <a
                 className="text-color-link underline font-bold text-center max-w-[120px] hover:text-red-400"
-                onClick={clicked}
+                onClick={function handleClick() {
+                  setProp(props);
+                  setModalOn(true);
+                }}
               >
                 BRINDAR INFORMACIÓN
               </a>
 
-              {modalOn && <PostNearMeForm setModalOn={setModalOn} />}
+              {modalOn && (
+                <PostNearMeForm setModalOn={setModalOn} props={prop} />
+              )}
             </div>
           </>
         )}

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { MainButton } from '../ui/buttons/index';
 import Image from 'next/image';
@@ -32,6 +32,8 @@ export const Dropzone = ({ edit, url }: IDropzone) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
   });
+
+  const { ref, ...rootProps } = getRootProps();
 
   return (
     <div className="grid gap-3">
@@ -86,9 +88,12 @@ export const Dropzone = ({ edit, url }: IDropzone) => {
         />
       )}
 
-      {edit && (
+      {edit && !picture && (
         <Image
-          src={url || ''}
+          src={
+            url ||
+            'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns='
+          }
           width={500}
           height={300}
           key={'hola'}
@@ -98,11 +103,11 @@ export const Dropzone = ({ edit, url }: IDropzone) => {
       )}
 
       {edit ? (
-        <MainButton {...getRootProps()} type="button">
+        <MainButton {...rootProps} type="button">
           Cambiar imagen
         </MainButton>
       ) : (
-        <MainButton {...getRootProps()} type="button">
+        <MainButton {...rootProps} type="button">
           {picture ? 'Cambiar imagen' : 'Agregar imagen'}
         </MainButton>
       )}

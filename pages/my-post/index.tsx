@@ -9,8 +9,6 @@ import { useEffect } from 'react';
 const MyPostPage: NextPage = () => {
   const router = useRouter();
 
-  console.log(router);
-
   useEffect(() => {
     if (router.query.status === 'PUB')
       toast.success(
@@ -22,7 +20,7 @@ const MyPostPage: NextPage = () => {
 
     if (router.query.status === 'DEL')
       toast.error(
-        `La publicación se elimino, ${router.query.item} ya no esta disponible.`,
+        `La publicación se elimino correctamente, ${router.query.item} ya no esta disponible.`,
         {
           toastId: router.query.item as Id,
         }

@@ -1,14 +1,14 @@
-import { Remove } from "@/ui/icons";
-import { Dialog, Transition } from "@headlessui/react";
-import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
-import { MainButton, DeleteButton, SuccessButton } from "../ui/buttons/index";
+import { Remove } from '@/ui/icons';
+import { Dialog, Transition } from '@headlessui/react';
+import { useRouter } from 'next/router';
+import { Fragment, useState, ReactNode } from 'react';
+import { MainButton, DeleteButton, SuccessButton } from '../ui/buttons/index';
 
 export default function ButtonModal({
   children,
   onClick,
 }: {
-  children?: string;
+  children?: string | ReactNode;
   onClick: any;
 }) {
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function ButtonModal({
 
   return (
     <>
-      {router.asPath !== "/my-post" ? (
+      {router.asPath !== '/my-post' ? (
         <DeleteButton
           type="button"
           onClick={openModal}
@@ -34,7 +34,11 @@ export default function ButtonModal({
         </DeleteButton>
       ) : (
         <button onClick={openModal}>
-          <Remove size={"w-7 h-7"} color="stroke-red-500" hover="hover:stroke-blue-500"  />
+          <Remove
+            size={'w-7 h-7'}
+            color="stroke-red-500"
+            hover="hover:stroke-blue-500"
+          />
         </button>
       )}
 

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Link from 'next/link';
 import { Form, Formik } from 'formik';
 
@@ -11,32 +11,9 @@ import { useAppSelector } from '../hooks/redux-toolkit';
 import { Subtitle } from '@/ui/typography';
 import ButtonModal from './ButtonModal';
 import fetchApi from '../lib/axios';
-
-export interface Item {
-  id?: number;
-  fullName: string;
-  title: string;
-  description: string;
-  imgURL?: string;
-  lat: number;
-  lng: number;
-  state?: 'PUB' | 'DEL';
-  email?: string;
-  userId?: number;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-export interface UpdateItem {
-  fullName: string;
-  title: string;
-  description: string;
-  lat: number;
-  lng: number;
-  state: string;
-  email: string;
-  userId: number;
-}
+import { useRouter } from 'next/router';
+import { Loader } from '../ui/loaders/index';
+import { Item } from '@/interfaces/Item';
 
 const initialValues = {
   fullName: '',
@@ -48,6 +25,9 @@ export const EditForm: FC<Item> = (item) => {
   const { picture, location } = useAppSelector(
     (state: RootState) => state.items
   );
+
+  const [isSending, setIsSending] = useState(false);
+  const router = useRouter();
 
   const { description, id, fullName, title, lat, lng, imgURL, userId, email } =
     item;
@@ -64,6 +44,7 @@ export const EditForm: FC<Item> = (item) => {
   };
 
   const updateItem = async (values: any) => {
+    setIsSending(true);
     const { data } = await fetchApi.put(`/item/update/${id}`, {
       ...currentItemUpdated,
       ...values,
@@ -72,12 +53,31 @@ export const EditForm: FC<Item> = (item) => {
       description: values.description || currentItemUpdated.description,
       imgURL: picture || item.imgURL,
     });
+    setIsSending(false);
+
+    router.push({
+      pathname: '/my-post',
+      query: {
+        item: data.title,
+        status: 'UPDATE',
+      },
+    });
   };
 
   const deleteItem = async () => {
+    setIsSending(true);
     const { data } = await fetchApi.put(`/item/update/${id}`, {
       ...currentItemUpdated,
       state: 'DEL',
+    });
+    setIsSending(false);
+
+    router.push({
+      pathname: '/my-post',
+      query: {
+        item: title,
+        status: 'DEL',
+      },
     });
   };
 
@@ -130,11 +130,15 @@ export const EditForm: FC<Item> = (item) => {
             <CancelButton type="button">
               <Link href="/">Cancelar</Link>
             </CancelButton>
-            <SuccessButton type="submit">Actualizar</SuccessButton>
+            <SuccessButton type="submit">
+              {isSending ? <Loader /> : 'Actualizar'}
+            </SuccessButton>
           </Form>
         )}
       </Formik>
-      <ButtonModal onClick={deleteItem}>Eliminar Publicacion</ButtonModal>
+      <ButtonModal onClick={deleteItem}>
+        {isSending ? <Loader /> : 'Eliminar Publicacion'}
+      </ButtonModal>
     </div>
   );
 };

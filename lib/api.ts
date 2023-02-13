@@ -1,5 +1,5 @@
-export const BASE_URL = "https://prodigar-api.vercel.app/api";
-import type { propsObjectCard } from "components/ObjectCard";
+export const BASE_URL = 'https://prodigar-api.vercel.app/api';
+import type { propsObjectCard } from 'components/ObjectCard';
 
 export async function fetchAPI(input: RequestInfo | URL, options?: any) {
   const url = BASE_URL + input;
@@ -14,7 +14,7 @@ export async function fetchAPI(input: RequestInfo | URL, options?: any) {
     newOptions.headers.Authorization = `Bearer ${token}`;
   }
 
-  newOptions.headers["Content-type"] = "application/json";
+  newOptions.headers['Content-type'] = 'application/json';
 
   if (newOptions.body) {
     newOptions.body = JSON.stringify(newOptions.body);
@@ -40,8 +40,8 @@ export async function sendCodeSignUp(
   address: string
 ) {
   try {
-    const data = await fetchAPI("/signup", {
-      method: "POST",
+    const data = await fetchAPI('/signup', {
+      method: 'POST',
       body: { email, fullName, address },
     });
 
@@ -53,8 +53,8 @@ export async function sendCodeSignUp(
 
 export async function sendCodeLogin(email: string) {
   try {
-    const data = await fetchAPI("/auth/login", {
-      method: "POST",
+    const data = await fetchAPI('/auth/login', {
+      method: 'POST',
       body: { email },
     });
 
@@ -65,8 +65,8 @@ export async function sendCodeLogin(email: string) {
 }
 
 export async function getToken(email: string, code: string) {
-  const res = await fetchAPI("/auth/token", {
-    method: "POST",
+  const res = await fetchAPI('/auth/token', {
+    method: 'POST',
     body: {
       email,
       code: Number(code),
@@ -79,28 +79,28 @@ export async function getToken(email: string, code: string) {
 }
 
 export function saveToken(token: string) {
-  localStorage.setItem("auth_token", token);
+  localStorage.setItem('auth_token', token);
 }
 
 export function getSaveToken() {
-  if (typeof window !== "undefined") {
-    const token = localStorage.getItem("auth_token");
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('auth_token');
     return token;
   }
   return false;
 }
 
 export function removeToken() {
-  localStorage.removeItem("auth_token");
+  localStorage.removeItem('auth_token');
 }
 
 export async function getMe() {
   const token = getSaveToken();
   if (token) {
     try {
-      const res = await fetch(BASE_URL + "/user/profile", {
+      const res = await fetch(BASE_URL + '/user/profile', {
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          'Access-Control-Allow-Origin': '*',
           Authorization: `bearer ${token}`,
         },
       });
@@ -114,7 +114,7 @@ export async function getMe() {
 
 export async function userPublishedItem() {
   try {
-    const data = await fetchAPI("/user/items");
+    const data = await fetchAPI('/user/items');
     return data;
   } catch (error) {
     return error;
@@ -124,16 +124,15 @@ export async function userPublishedItem() {
 export async function deleteItem(itemProps: propsObjectCard) {
   const deleteItem = {
     ...itemProps,
-    state: "DEL",
+    state: 'DEL',
   };
 
   delete deleteItem.id;
   try {
     const data = await fetchAPI(`/item/update/${itemProps.id}`, {
-      method: "PUT",
+      method: 'PUT',
       body: deleteItem,
     });
-    console.log(data);
     if (data) {
       location.reload();
     }
@@ -156,7 +155,7 @@ export async function sendEmailContact(itemId: number, newContactData: any) {
   console.log({ newContactData });
   try {
     const data = await fetchAPI(`/contact/${itemId}`, {
-      method: "POST",
+      method: 'POST',
       body: newContactData,
     });
 

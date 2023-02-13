@@ -11,9 +11,9 @@ import { useAppSelector } from '../hooks/redux-toolkit';
 import fetchApi from '../lib/axios';
 import { useMe } from '../hooks/index';
 import { useState } from 'react';
-import { Item } from './EditForm';
 import { Loader } from '@/ui/loaders';
 import { useRouter } from 'next/router';
+import { Item } from '@/interfaces/Item';
 
 interface InitialValues {
   fullName?: string;
@@ -40,7 +40,6 @@ export const PostForm = () => {
   } = useAppSelector((state: RootState) => state.items);
 
   const { email, id } = useMe();
-
   const router = useRouter();
 
   const [isSending, setIsSending] = useState(false);
@@ -58,12 +57,15 @@ export const PostForm = () => {
     });
     setIsSending(false);
 
-    router.push({
-      pathname: '/my-post',
-      query: {
-        item: values.title,
-      },
-    });
+    if (status === 200) {
+      router.push({
+        pathname: '/my-post',
+        query: {
+          item: values.title,
+          status: 'PUB',
+        },
+      });
+    }
   };
 
   return (

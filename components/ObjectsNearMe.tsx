@@ -9,7 +9,7 @@ import { BodyBold, Subtitle, Title } from "ui/typography";
 export const PostNearMe = () => {
   const [loader, setLoader] = useState(false);
   const [res, setRes] = useState(null) as any;
-  
+
   const handleClick = () => {
     setLoader(true);
     navigator.geolocation.getCurrentPosition(async (geolocation) => {
@@ -62,9 +62,14 @@ export const PostNearMe = () => {
             CONOCER TU UBICACIÓN.
           </BodyBold>
 
-          <DeleteButton onClick={handleClick}>
+          <button
+            onClick={handleClick}
+            className={
+              "w-full lg:w-[1000px] bg-red-600 flex items-center justify-center text-white font-montserrat font-bold text-sm md:text-base py-2 md:py-4 md:px-2 rounded-lg cursor-pointer"
+            }
+          >
             {loader ? <Loader /> : "Dar mi ubicación"}
-          </DeleteButton>
+          </button>
         </div>
       )}
     </section>

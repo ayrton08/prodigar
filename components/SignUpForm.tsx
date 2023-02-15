@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import { Form, Formik } from 'formik';
-import * as yup from 'yup';
-import { useRouter } from 'next/router';
-import { RootState } from 'store/store';
-import { setUserData } from 'store';
-import { useAppDispatch, useAppSelector } from 'hooks/redux-toolkit';
-import { sendCodeSignUp } from 'lib/api';
-import { MainButton } from 'ui/buttons';
-import { InputText } from 'ui/text-field';
-import { Loader } from 'ui/loaders';
+import { useState } from "react";
+import { Form, Formik } from "formik";
+import * as yup from "yup";
+import { useRouter } from "next/router";
+import { RootState } from "store/store";
+import { setUserData, setUserEmail } from "store";
+import { useAppDispatch, useAppSelector } from "hooks/redux-toolkit";
+import { sendCodeSignUp } from "lib/api";
+import { MainButton } from "ui/buttons";
+import { InputText } from "ui/text-field";
+import { Loader } from "ui/loaders";
+import { SpanError, SpanSuccess } from "ui/typography";
 
 interface InitialValues {
   email: string;
@@ -17,39 +18,59 @@ interface InitialValues {
 }
 
 const initialValues = {
-  email: '',
-  fullName: '',
-  address: '',
+  email: "",
+  fullName: "",
+  address: "",
 };
 
 const schema = yup.object().shape({
-  email: yup.string().required().email(),
-  fullname: yup.string().required(),
+  email: yup.string().required(),
+  fullName: yup.string().required(),
   address: yup.string().required(),
 });
 
 export const SignUpForm = () => {
   const router = useRouter();
+  const [err, setErr] = useState("");
+  const [success, setSuccess] = useState("");
   const [loader, setLoader] = useState(false);
   const { userData } = useAppSelector((state: RootState) => state.userData);
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (values: InitialValues) => {
     setLoader(true);
-    dispatch(setUserData(values));
 
     const data: any = await sendCodeSignUp(
-      userData.email,
-      userData.fullName,
-      userData.address ? userData.address : ''
+      values.email,
+      values.fullName,
+      values.address ? values.address : ""
     );
 
     if (data) {
       setLoader(false);
     }
 
+    if (data.error) {
+      setErr(data.error.message);
+      setTimeout(() => {
+        router.push("/login");
+      }, 1500);
+    }
+
+    console.log(data);
     if (data.status >= 200 && data.status < 300) {
-      router.push('/login');
+      dispatch(
+        setUserData({
+          email: values.email,
+          fullName: values.fullName,
+          address: values.address,
+        })
+      );
+      dispatch(setUserEmail(values.email));
+      setSuccess("Logueado con éxito, redirigiendo a login...");
+      setTimeout(() => {
+        router.push("/login");
+      }, 1500);
     }
   };
 
@@ -71,10 +92,10 @@ export const SignUpForm = () => {
           />
           <InputText
             label="Full name"
-            id="fullname"
+            id="fullName"
             type="text"
             md="md:text-lg"
-            name="fullname"
+            name="fullName"
             onChange={handleChange}
           />
           <InputText
@@ -87,8 +108,14 @@ export const SignUpForm = () => {
           />
 
           <MainButton type="submit">
-            {loader ? <Loader /> : 'Continuar'}
+            {loader ? <Loader /> : "Continuar"}
           </MainButton>
+
+          <SpanError>
+            {err ? `${err + ", redirecting to login..."}` : ""}
+          </SpanError>
+
+          <SpanSuccess>{success}</SpanSuccess>
         </Form>
       )}
     </Formik>

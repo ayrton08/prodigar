@@ -7,7 +7,7 @@ import { SuccessButton } from '../../ui/buttons';
 import { Small } from '../../ui/typography';
 import { Location, setLocation } from '@/store';
 
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN! || "pk.eyJ1IjoiYXlydG9uMDgiLCJhIjoiY2wzeDZhZ2syMHk0NDNqbzJnbmxvazRiNCJ9.5zxk9KddYfSgjIPoEBz76A";
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
 
 interface IMapbox {
   edit?: boolean;

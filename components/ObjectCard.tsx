@@ -57,7 +57,7 @@ export const ObjectCard = (props: propsObjectCard) => {
         </div>
 
         {router.asPath !== "/objects-near-me" ? (
-          <div className="grid gap-3">
+          <div className="grid gap-3 justify-items-center">
             <Link href={`/item/${id}`}>
               <Edit
                 size={"w-7 h-7"}
@@ -72,7 +72,13 @@ export const ObjectCard = (props: propsObjectCard) => {
                 onClick={async () => {
                   await deleteItem(props);
                 }}
-              ></ButtonModal>
+              >
+                <Remove
+                  size={"w-7 h-7"}
+                  color="stroke-white"
+                  hover="hover:stroke-blue-500"
+                />
+              </ButtonModal>
             )}
           </div>
         ) : (

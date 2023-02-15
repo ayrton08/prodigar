@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { Form, Formik } from 'formik';
-import * as yup from 'yup';
-import { MainButton } from 'ui/buttons';
-import { BodyBold, SpanError, SpanSuccess } from 'ui/typography';
-import { InputText } from 'ui/text-field';
-import { RootState, setUserData } from '@/store';
-import { useAppDispatch, useAppSelector } from 'hooks/redux-toolkit';
-import { getToken, sendCodeLogin } from '@/lib/api';
-import { Loader } from 'ui/loaders';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { Form, Formik } from "formik";
+import * as yup from "yup";
+import { RootState, setUserData } from "store";
+import { useAppDispatch, useAppSelector } from "hooks/redux-toolkit";
+import { getToken, sendCodeLogin } from "lib/api";
+import { MainButton } from "ui/buttons";
+import { BodyBold, SpanError, SpanSuccess } from "ui/typography";
+import { InputText } from "ui/text-field";
+import { Loader } from "ui/loaders";
 
 interface InitialEmailValue {
   email: string;
@@ -16,8 +16,8 @@ interface InitialEmailValue {
 interface InitialCodeValue {
   code: string;
 }
-const initialEmailValue = { email: '' };
-const initialCodeValue = { code: '' };
+const initialEmailValue = { email: "" };
+const initialCodeValue = { code: "" };
 const emailSchema = yup
   .object()
   .shape({ email: yup.string().required().email() });
@@ -29,10 +29,12 @@ export const LoginForm = () => {
   const [loader, setLoader] = useState(false);
   const router = useRouter();
   const { userData } = useAppSelector((state: RootState) => state.userData);
+  const { email } = useAppSelector((state: RootState) => state.userEmail);
   const dispatch = useAppDispatch();
+  const mail = userData?.email || email;
 
   const handleEmail = async (values: InitialEmailValue) => {
-    dispatch(setUserData({ email: values.email, fullName: '', address: '' }));
+    dispatch(setUserData({ email: values.email, fullName: "", address: "" }));
 
     try {
       await sendCodeLogin(values.email);
@@ -43,22 +45,22 @@ export const LoginForm = () => {
 
   const handleCode = async (values: InitialCodeValue) => {
     setLoader(true);
-    setErr('');
+    setErr("");
 
     try {
-      await getToken(userData.email, values.code);
-      setSuccess('Logueado con éxito');
+      await getToken(userData.email || email, values.code);
+      setSuccess("Logueado con éxito");
       setTimeout(() => {
-        router.push('/');
-      }, 400);
+        router.push("/");
+      }, 1000);
     } catch (error) {
-      setErr('Código inválido');
+      setErr("Código inválido");
       setLoader(false);
       return error;
     }
   };
 
-  return !userData?.email ? (
+  return !mail ? (
     <Formik
       initialValues={initialEmailValue}
       onSubmit={async (values) => handleEmail(values)}
@@ -75,7 +77,7 @@ export const LoginForm = () => {
             onChange={handleChange}
           />
           <MainButton type="submit">
-            {loader ? <Loader /> : 'Continuar'}
+            {loader ? <Loader /> : "Continuar"}
           </MainButton>
         </Form>
       )}
@@ -99,10 +101,10 @@ export const LoginForm = () => {
             name="code"
             onChange={handleChange}
           />
-          {success ? <SpanSuccess margin="mt-3.5">{success}</SpanSuccess> : ''}
-          {err ? <SpanError>{err}</SpanError> : ''}
+          {success ? <SpanSuccess margin="mt-3.5">{success}</SpanSuccess> : ""}
+          {err ? <SpanError>{err}</SpanError> : ""}
           <MainButton type="submit">
-            {loader ? <Loader /> : 'Ingresar'}
+            {loader ? <Loader /> : "Ingresar"}
           </MainButton>
         </Form>
       )}

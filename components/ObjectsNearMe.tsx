@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { searchItemsByLocation } from "lib/api";
-import { ObjectCard } from "./ObjectCard";
-import { Location } from "ui/icons";
-import { Loader } from "ui/loaders";
-import { DeleteButton } from "ui/buttons";
-import { BodyBold, Subtitle, Title } from "ui/typography";
+import { useState } from 'react'
+import { searchItemsByLocation } from 'lib/api'
+import { ObjectCard } from './ObjectCard'
+import { Location } from 'ui/icons'
+import { Loader } from 'ui/loaders'
+import { DeleteButton } from 'ui/buttons'
+import { BodyBold, Subtitle, Title } from 'ui/typography'
 
 export const PostNearMe = () => {
   const [loader, setLoader] = useState(false);
@@ -17,16 +17,16 @@ export const PostNearMe = () => {
       const lng = geolocation.coords.longitude;
       const res = await searchItemsByLocation(lat, lng);
 
-      if (res) {
-        setRes(res);
-        setLoader(false);
-      }
-    });
-  };
+			if (res) {
+				setRes(res)
+				setLoader(false)
+			}
+		})
+	}
 
-  return (
-    <section className="min-h-[50vh] px-8 pt-10 md:pt-0 flex flex-col gap-12 center md:gap-20 md:w-[800px] lg:w-full lg:max-w-[1500px] md:grid md:col-[none] md:min-h-[50vh] ">
-      <Title align="center md:text-4xl">Objetos cerca tuyo</Title>
+	return (
+		<section className='min-h-[50vh] px-8 pt-10 md:pt-0 flex flex-col gap-12 center md:gap-20 md:w-[800px] lg:w-full lg:max-w-[1500px] md:grid md:col-[none] md:min-h-[50vh] '>
+			<Title align='center md:text-4xl'>Objetos cerca tuyo</Title>
 
       {res !== null ? (
         <div>

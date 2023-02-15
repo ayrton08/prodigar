@@ -1,7 +1,7 @@
-import { getMe, getSaveToken, userPublishedItem } from 'lib/api';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { getMe, getSaveToken, userPublishedItem } from "lib/api";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface IUseFetch {
   onFetch: (email: string, path: string) => Promise<any>;
@@ -17,27 +17,27 @@ export const useFetch = (): IUseFetch => {
       ? toast.info(
           `Ya hemos registrado el mail ${email}, en breve te enviaremos las novedades a tu mail.`,
           {
-            position: 'bottom-left',
+            position: "bottom-left",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: 'light',
+            theme: "light",
           }
         )
       : toast.success(
           `Hemos registrado el mail ${email}, en breve te enviaremos las novedades a tu mail.`,
           {
-            position: 'bottom-left',
+            position: "bottom-left",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: 'light',
+            theme: "light",
           }
         );
   };
@@ -45,7 +45,7 @@ export const useFetch = (): IUseFetch => {
     try {
       setIsSending(true);
       const res = await fetch(`https://prodigar.vercel.app/api${path}`, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({ email }),
       });
       const data = await res.json();
@@ -71,8 +71,8 @@ export function useGetToken() {
   return { token };
 }
 
-import { useAppDispatch, useAppSelector } from 'hooks/redux-toolkit';
-import { RootState, setUserData } from 'store';
+import { useAppDispatch, useAppSelector } from "hooks/redux-toolkit";
+import { RootState, setUserData } from "store";
 
 export function useMe() {
   const dispatch = useAppDispatch();

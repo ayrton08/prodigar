@@ -1,12 +1,12 @@
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { useState } from 'react';
-import { PostNearMeForm } from './ObjectsNearMeForm';
-import { deleteItem } from '@/lib/api';
-import { BodyBold, LargeBold } from 'ui/typography';
-import { Edit, Remove } from 'ui/icons';
-import Image from 'next/image';
-import ButtonModal from './ButtonModal';
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { useState } from "react";
+import { PostNearMeForm } from "./ObjectsNearMeForm";
+import { deleteItem } from "@/lib/api";
+import { BodyBold, LargeBold } from "ui/typography";
+import { Edit, Remove } from "ui/icons";
+import Image from "next/image";
+import ButtonModal from "./ButtonModal";
 
 export type propsObjectCard = {
   description?: string;
@@ -34,9 +34,9 @@ export const ObjectCard = (props: propsObjectCard) => {
       <div>
         <Image
           src={
-            imgURL.startsWith('https')
+            imgURL.startsWith("https")
               ? imgURL
-              : 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns='
+              : "https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns="
           }
           title={title}
           alt={`object-${title}`}
@@ -51,26 +51,35 @@ export const ObjectCard = (props: propsObjectCard) => {
         <div className="grid gap-2">
           <LargeBold>{title}</LargeBold>
 
-          <BodyBold color={state == 'PUB' ? 'text-green-600' : 'text-red-500'}>
+          <BodyBold color={state == "PUB" ? "text-green-600" : "text-red-500"}>
             {state}
           </BodyBold>
         </div>
 
-        {router.asPath == '/my-post' ? (
-          <div className="grid gap-3">
+        {router.asPath !== "/objects-near-me" ? (
+          <div className="grid gap-3 justify-items-center">
             <Link href={`/item/${id}`}>
               <Edit
-                size={'w-7 h-7'}
+                size={"w-7 h-7"}
                 color="stroke-yellow-500"
                 hover="hover:stroke-blue-500"
               />
             </Link>
-
-            <ButtonModal
-              onClick={async () => {
-                await deleteItem(props);
-              }}
-            ></ButtonModal>
+            {props.state == "DEL" ? (
+              ""
+            ) : (
+              <ButtonModal
+                onClick={async () => {
+                  await deleteItem(props);
+                }}
+              >
+                <Remove
+                  size={"w-7 h-7"}
+                  color="stroke-white"
+                  hover="hover:stroke-blue-500"
+                />
+              </ButtonModal>
+            )}
           </div>
         ) : (
           <>

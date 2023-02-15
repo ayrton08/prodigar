@@ -11,7 +11,6 @@ export const Header = () => {
   const router = useRouter();
   const { token } = useGetToken();
   const userData: any = useMe();
-
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleClick = () => {

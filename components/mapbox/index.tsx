@@ -64,9 +64,10 @@ export function Mapbox({ edit, location }: IMapbox) {
 
       marker?.current?.remove();
       marker.current = new mapboxgl.Marker();
+      console.log(e)
       marker.current.setLngLat(coordinates).addTo(map.current!);
     });
-  }, [dispatch, edit, locationUpdate, zoom, location]);
+  }, [dispatch, edit, locationUpdate, zoom, location, lat]);
 
   const myLocation = (e: any) => {
     e.preventDefault();
